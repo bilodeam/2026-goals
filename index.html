@@ -729,7 +729,7 @@ function renderDashboard() {
               </div>
             </div>
             <div class="sub-row-right">
-              <button class="btn-delete" onclick="event.stopPropagation();confirmDelete('${subId}',${i},'${s.employeeName.replace(/'/g,"\\'")}')">🗑 Delete</button>
+              <button onclick="event.stopPropagation();confirmDelete('${subId}',${i},'${s.employeeName.replace(/'/g,String.fromCharCode(39))}');" style="background:#ef4444;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;margin-right:8px;">🗑 Delete</button>
               <span class="sub-arrow" id="arrow-${i}">›</span>
             </div>
           </div>
@@ -779,29 +779,23 @@ function setSort(val) {
 }
 
 function confirmDelete(subId, idx, name) {
-  if (!confirm(`Delete submission from "${name}"? This cannot be undone.`)) return;
+  if (!confirm('Delete submission from "' + name + '"? This cannot be undone.')) return;
   doDelete(subId, idx);
 }
 
 async function doDelete(subId, idx) {
   try {
-    // If id not stored, fall back to index-based deletion
     const binId = await getOrCreateBin();
-    const getRes = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{"X-Master-Key":JSONBIN_KEY}});
+    const getRes = await fetch("https://api.jsonbin.io/v3/b/"+binId+"/latest",{headers:{"X-Master-Key":JSONBIN_KEY}});
     const current = await getRes.json();
-    let subs = current.record.submissions || [];
-    // Try by id first, then by index
-    const newSubs = subs.filter((s,i) => s.id !== subId && i !== idx || (s.id && s.id !== subId));
-    // Simple approach: remove by index if no id match
-    const filtered = subs.filter((s,i) => {
-      if (s.id) return s.id !== subId;
-      return i !== idx;
-    });
-    await fetch(`https://api.jsonbin.io/v3/b/${binId}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY},body:JSON.stringify({submissions:filtered})});
+    const subs = current.record.submissions || [];
+    // Remove by index (most reliable)
+    const filtered = subs.filter((_,i) => i !== idx);
+    await fetch("https://api.jsonbin.io/v3/b/"+binId,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY},body:JSON.stringify({submissions:filtered})});
     allSubs = filtered;
     renderDashboard();
   } catch(e) {
-    alert('Error deleting submission. Please try again.');
+    alert("Error deleting submission. Please try again.");
   }
 }
 
