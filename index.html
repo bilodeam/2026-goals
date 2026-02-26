@@ -243,8 +243,35 @@
 <script type="text/babel">
 const { useState, useEffect } = React;
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznICmIn7yhyqL2KwxROxI2NRkGLlwX92LELu7C_jTt4A0mXu7bL35sSCI9hUxceV5AAg/exec";
+const JSONBIN_KEY = "$2a$10$4XBuzRlSsNfSfc.xD58ZWOpzy5.av2aeY/PUDckl6JdzIuH2Lnt/u";
+const JSONBIN_URL = "https://api.jsonbin.io/v3/b";
 const MANAGER_PASSWORD = "manager2026";
+let JSONBIN_ID = null;
+
+async function getBinId() {
+  if (JSONBIN_ID) return JSONBIN_ID;
+  // Try to find existing bin
+  const res = await fetch("https://api.jsonbin.io/v3/b", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Master-Key": JSONBIN_KEY,
+      "X-Bin-Name": "2026-goals-submissions",
+      "X-Bin-Private": "false"
+    },
+    body: JSON.stringify({ submissions: [] })
+  });
+  const data = await res.json();
+  JSONBIN_ID = data.metadata.id;
+  localStorage.setItem("jsonbin_id_2026", JSONBIN_ID);
+  return JSONBIN_ID;
+}
+
+async function getOrCreateBin() {
+  const stored = localStorage.getItem("jsonbin_id_2026");
+  if (stored) { JSONBIN_ID = stored; return stored; }
+  return await getBinId();
+}
 
 const PROJECTS = [
   { id: "proj-01", title: "Improve Vehicles Star Ratings",                  color: "#fef3c7", accent: "#d97706", emoji: "⭐" },
@@ -261,15 +288,37 @@ const PROJECTS = [
   { id: "proj-12", title: "Reduce Post-FPR Changes and Tool Modifications", color: "#cffafe", accent: "#0e7490", emoji: "🔧" },
 ];
 
-// ── Save to Google Sheets ────────────────────────────────────────────────────
+// ── Save to JSONBin ───────────────────────────────────────────────────────────
 async function saveSubmission(name, ratings) {
-  const data = { employeeName: name, submittedAt: new Date().toISOString(), ratings };
-  await fetch(APPS_SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+  const binId = await getOrCreateBin();
+  // Read current data
+  const getRes = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+    headers: { "X-Master-Key": JSONBIN_KEY }
   });
+  const current = await getRes.json();
+  const submissions = current.record.submissions || [];
+  submissions.push({ employeeName: name, submittedAt: new Date().toISOString(), ratings });
+  // Write back
+  await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_KEY },
+    body: JSON.stringify({ submissions })
+  });
+  return true;
+}
+
+async function loadAllSubmissions() {
+  try {
+    const binId = await getOrCreateBin();
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+      headers: { "X-Master-Key": JSONBIN_KEY }
+    });
+    const data = await res.json();
+    return data.record.submissions || [];
+  } catch(e) {
+    console.warn("Load error:", e);
+    return [];
+  }
 }
 
 // ── Step Bar ─────────────────────────────────────────────────────────────────
@@ -531,8 +580,7 @@ function ManagerDashboard({ onBack }) {
   useEffect(() => {
     if (!authed) return;
     setLoading(true);
-    setNote("Note: Data is stored in your Google Sheet. This dashboard shows a local preview only. Use Export CSV or check your Google Sheet directly.");
-    setLoading(false);
+    loadAllSubmissions().then(data => { setSubs(data); setLoading(false); }).catch(() => setLoading(false));
   }, [authed]);
 
   const projectStats = PROJECTS.map(p => {
@@ -621,28 +669,114 @@ function ManagerDashboard({ onBack }) {
             📋 {note} Your Google Sheet at the Apps Script URL receives all submissions directly.
           </div>
         )}
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))",gap:16,marginBottom:32}}>
-          {[
-            {emoji:"👥",label:"Total Submissions",value:subs.length,sub:"team members responded"},
-            {emoji:"🏆",label:"Data Location",value:"Google Sheet",sub:"Check your Submissions tab"},
-            {emoji:"⬇",label:"Export",value:"CSV Ready",sub:"Click Export CSV above"},
-          ].map((c,i)=>(
-            <div key={i} style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",padding:20}}>
-              <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:8}}>
-                <div style={{width:36,height:36,background:"#fef3c7",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>{c.emoji}</div>
-                <span style={{color:"#64748b",fontSize:11,fontWeight:600,textTransform:"uppercase",letterSpacing:"0.05em"}}>{c.label}</span>
-              </div>
-              <div style={{fontSize:28,fontWeight:900,color:"#0f172a",lineHeight:1}}>{c.value}</div>
-              <div style={{color:"#94a3b8",fontSize:12,marginTop:4}}>{c.sub}</div>
+        {/* Summary Cards */}
+        {(() => {
+          const topProject = [...projectStats].sort((a,b)=>b.selections-a.selections)[0];
+          const topRated = [...projectStats].filter(p=>p.avg!=="—").sort((a,b)=>parseFloat(b.avg)-parseFloat(a.avg))[0];
+          return (
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))",gap:16,marginBottom:32}}>
+              {[
+                {emoji:"👥",label:"Total Submissions",value:subs.length,sub:"team members responded"},
+                {emoji:"🏆",label:"Most Selected",value:topProject?.selections?`${topProject.selections}x`:"—",sub:topProject?.title||"No data yet"},
+                {emoji:"⭐",label:"Highest Rated",value:topRated?`${topRated.avg} ★`:"—",sub:topRated?.title||"No data yet"},
+              ].map((c,i)=>(
+                <div key={i} style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",padding:20}}>
+                  <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:8}}>
+                    <div style={{width:36,height:36,background:"#fef3c7",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>{c.emoji}</div>
+                    <span style={{color:"#64748b",fontSize:11,fontWeight:600,textTransform:"uppercase",letterSpacing:"0.05em"}}>{c.label}</span>
+                  </div>
+                  <div style={{fontSize:28,fontWeight:900,color:"#0f172a",lineHeight:1}}>{c.value}</div>
+                  <div style={{color:"#94a3b8",fontSize:12,marginTop:4,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.sub}</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",padding:24,textAlign:"center"}}>
-          <div style={{fontSize:48,marginBottom:16}}>📊</div>
-          <h3 style={{fontSize:18,fontWeight:700,color:"#475569",marginBottom:8}}>All submissions go to your Google Sheet</h3>
-          <p style={{color:"#94a3b8",fontSize:14,marginBottom:24}}>Open your Google Sheet and check the <strong>Submissions</strong> tab to see all team responses in real-time.</p>
-          <p style={{color:"#64748b",fontSize:13}}>When you're ready to analyze, use <strong>Export CSV</strong> above to download a formatted summary.</p>
-        </div>
+          );
+        })()}
+
+        {loading ? (
+          <div style={{textAlign:"center",padding:"80px 0",color:"#94a3b8",fontSize:16}}>Loading results...</div>
+        ) : subs.length === 0 ? (
+          <div style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",padding:48,textAlign:"center"}}>
+            <div style={{fontSize:48,marginBottom:16}}>📭</div>
+            <h3 style={{fontSize:18,fontWeight:700,color:"#475569",marginBottom:8}}>No submissions yet</h3>
+            <p style={{color:"#94a3b8",fontSize:14}}>Share the tool link with your team to start collecting responses.</p>
+          </div>
+        ) : (
+          <div>
+            {/* Sort controls */}
+            <div style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",overflow:"hidden",marginBottom:24}}>
+              <div style={{padding:"16px 20px",borderBottom:"1px solid #f1f5f9",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                <h3 style={{fontWeight:700,color:"#1e293b"}}>Project Results</h3>
+                <div style={{display:"flex",gap:8}}>
+                  <button onClick={()=>setSort("selections")} style={{fontSize:12,padding:"6px 12px",borderRadius:8,fontWeight:600,cursor:"pointer",border:"none",background:sort==="selections"?"#0f172a":"#f1f5f9",color:sort==="selections"?"#fff":"#475569"}}>By Selections</button>
+                  <button onClick={()=>setSort("rating")} style={{fontSize:12,padding:"6px 12px",borderRadius:8,fontWeight:600,cursor:"pointer",border:"none",background:sort==="rating"?"#0f172a":"#f1f5f9",color:sort==="rating"?"#fff":"#475569"}}>By Avg Rating</button>
+                </div>
+              </div>
+              {sorted.map((p,idx) => (
+                <div key={p.id} style={{padding:"16px 20px",display:"flex",alignItems:"center",gap:16,borderBottom:"1px solid #f8fafc",background:idx%2===0?"#fff":"#fafafa"}}>
+                  <div style={{width:28,height:28,background:"#f1f5f9",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",color:"#64748b",fontWeight:700,fontSize:12,flexShrink:0}}>{idx+1}</div>
+                  <div style={{width:40,height:40,background:p.color,borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>{p.emoji}</div>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontWeight:600,color:"#0f172a",fontSize:14}}>{p.title}</div>
+                    <div style={{color:"#94a3b8",fontSize:12,marginTop:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p.employees.join(", ")||"No selections yet"}</div>
+                    {p.dist.some(n=>n>0) && (
+                      <div style={{display:"flex",gap:8,marginTop:4}}>
+                        {p.dist.map((count,i)=>(
+                          <span key={i} style={{fontSize:11,color:"#94a3b8"}}>★{i+1}: {count}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div style={{display:"flex",gap:24,flexShrink:0}}>
+                    <div style={{textAlign:"center"}}>
+                      <div style={{fontSize:22,fontWeight:900,color:"#0f172a"}}>{p.selections}</div>
+                      <div style={{fontSize:11,color:"#94a3b8"}}>selections</div>
+                    </div>
+                    <div style={{textAlign:"center"}}>
+                      <div style={{fontSize:22,fontWeight:900,color:"#d97706"}}>{p.avg}</div>
+                      <div style={{fontSize:11,color:"#94a3b8"}}>avg rating</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* All submissions table */}
+            <div style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",overflow:"hidden"}}>
+              <div style={{padding:"16px 20px",borderBottom:"1px solid #f1f5f9"}}>
+                <h3 style={{fontWeight:700,color:"#1e293b"}}>All Submissions</h3>
+              </div>
+              <div style={{overflowX:"auto"}}>
+                <table style={{width:"100%",borderCollapse:"collapse",fontSize:14}}>
+                  <thead>
+                    <tr style={{background:"#f8fafc"}}>
+                      <th style={{padding:"12px 20px",color:"#64748b",fontWeight:600,fontSize:12,textTransform:"uppercase",letterSpacing:"0.05em",textAlign:"left"}}>Employee</th>
+                      <th style={{padding:"12px 20px",color:"#64748b",fontWeight:600,fontSize:12,textTransform:"uppercase",letterSpacing:"0.05em",textAlign:"left"}}>Submitted</th>
+                      <th style={{padding:"12px 20px",color:"#64748b",fontWeight:600,fontSize:12,textTransform:"uppercase",letterSpacing:"0.05em",textAlign:"left"}}>Projects Rated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {subs.map((s,i)=>(
+                      <tr key={i} style={{borderTop:"1px solid #f1f5f9"}}>
+                        <td style={{padding:"12px 20px",fontWeight:600,color:"#0f172a"}}>{s.employeeName}</td>
+                        <td style={{padding:"12px 20px",color:"#64748b"}}>{new Date(s.submittedAt).toLocaleString()}</td>
+                        <td style={{padding:"12px 20px"}}>
+                          <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
+                            {s.ratings.map((r,j)=>(
+                              <span key={j} style={{display:"inline-flex",alignItems:"center",gap:4,background:"#f1f5f9",color:"#475569",fontSize:12,padding:"2px 8px",borderRadius:9999}}>
+                                {r.title.split(" ").slice(0,3).join(" ")}… ★{r.rating}
+                              </span>
+                            ))}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
