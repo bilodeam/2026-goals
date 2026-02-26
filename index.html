@@ -12,9 +12,10 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 input{font-family:inherit}
 table{border-collapse:collapse;width:100%}
 
-.page{display:none !important}
-.page.active{display:block !important;min-height:100vh}
-#confirm-page.active,#manager-login.active{display:flex !important;flex-direction:column;align-items:center;justify-content:center}
+#app{position:relative;width:100%;min-height:100vh}
+.page{display:none}
+.page.active{display:block}
+#confirm-page.active,#manager-login.active{display:flex;flex-direction:column;align-items:center;justify-content:center}
 #manager-login.active{background:#0f172a}
 #confirm-page.active{background:#f8fafc}
 
@@ -233,6 +234,7 @@ table{border-collapse:collapse;width:100%}
 </head>
 <body>
 
+<div id="app">
 <!-- WELCOME -->
 <div id="welcome" class="page active">
   <div class="welcome-header">
@@ -265,7 +267,7 @@ table{border-collapse:collapse;width:100%}
 </div>
 
 <!-- SELECT -->
-<div id="select-page" class="page">
+<div id="select-page" style="display:none" class="page">
   <div class="topnav">
     <div class="nav-logo"><div class="nav-logo-icon">🏆</div><span class="nav-logo-text">TeamGoals 2026</span></div>
     <div class="nav-greeting">Hello, <span id="nav-name-select"></span></div>
@@ -284,7 +286,7 @@ table{border-collapse:collapse;width:100%}
 </div>
 
 <!-- RANK -->
-<div id="rank-page" class="page">
+<div id="rank-page" style="display:none" class="page">
   <div class="topnav">
     <div class="nav-logo"><div class="nav-logo-icon">🏆</div><span class="nav-logo-text">TeamGoals 2026</span></div>
     <div class="nav-greeting">Hello, <span id="nav-name-rank"></span></div>
@@ -307,7 +309,7 @@ table{border-collapse:collapse;width:100%}
 </div>
 
 <!-- CONFIRM -->
-<div id="confirm-page" class="page">
+<div id="confirm-page" style="display:none" class="page">
   <div class="confirm-inner">
     <div class="confirm-check">✓</div>
     <h2 class="confirm-title" id="confirm-title">You're all set!</h2>
@@ -321,7 +323,7 @@ table{border-collapse:collapse;width:100%}
 </div>
 
 <!-- MANAGER LOGIN -->
-<div id="manager-login" class="page">
+<div id="manager-login" style="display:none" class="page">
   <div class="login-box">
     <div class="login-icon">🔒</div>
     <h2 class="login-title">Manager Access</h2>
@@ -334,7 +336,7 @@ table{border-collapse:collapse;width:100%}
 </div>
 
 <!-- MANAGER DASHBOARD -->
-<div id="manager-dash" class="page">
+<div id="manager-dash" style="display:none" class="page">
   <div class="dash-header">
     <div class="dash-logo">
       <div class="dash-logo-icon">📊</div>
@@ -354,6 +356,7 @@ table{border-collapse:collapse;width:100%}
   </div>
 </div>
 
+</div><!-- end #app -->
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
 const JSONBIN_KEY = "$2a$10$4XBuzRlSsNfSfc.xD58ZWOpzy5.av2aeY/PUDckl6JdzIuH2Lnt/u";
@@ -424,13 +427,16 @@ async function deleteSubmission(subId) {
 
 // ── PAGE ROUTING ──────────────────────────────────────────────────────────────
 function showPage(id) {
+  // Hide ALL pages completely
   document.querySelectorAll('.page').forEach(p => {
-    p.classList.remove('active');
-    p.style.display = 'none';
+    p.className = 'page';
+    p.style.cssText = 'display:none';
   });
+  // Show only the target page
   const page = document.getElementById(id);
   page.classList.add('active');
-  page.style.display = (id === 'confirm-page' || id === 'manager-login') ? 'flex' : 'block';
+  const isFlex = (id === 'confirm-page' || id === 'manager-login');
+  page.style.cssText = isFlex ? 'display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh' : 'display:block;min-height:100vh';
   window.scrollTo(0,0);
 }
 
