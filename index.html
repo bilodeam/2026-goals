@@ -4,262 +4,389 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>TeamGoals 2026</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', sans-serif; background: #f8fafc; }
-  .serif { font-family: 'Playfair Display', serif; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f8fafc;min-height:100vh}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+input{font-family:inherit}
+table{border-collapse:collapse;width:100%}
 
-  /* Layout */
-  .min-h-screen { min-height: 100vh; }
-  .flex { display: flex; }
-  .flex-col { flex-direction: column; }
-  .flex-1 { flex: 1; }
-  .items-center { align-items: center; }
-  .items-start { align-items: flex-start; }
-  .justify-center { justify-content: center; }
-  .justify-between { justify-content: space-between; }
-  .flex-wrap { flex-wrap: wrap; }
-  .shrink-0 { flex-shrink: 0; }
-  .min-w-0 { min-width: 0; }
-  .grid { display: grid; }
-  .gap-1 { gap: 4px; }
-  .gap-2 { gap: 8px; }
-  .gap-3 { gap: 12px; }
-  .gap-4 { gap: 16px; }
-  .gap-6 { gap: 24px; }
-  .w-full { width: 100%; }
-  .max-w-lg { max-width: 512px; }
-  .max-w-3xl { max-width: 768px; }
-  .max-w-6xl { max-width: 1152px; }
-  .mx-auto { margin-left: auto; margin-right: auto; }
-  .text-center { text-align: center; }
-  .text-left { text-align: left; }
-  .overflow-hidden { overflow: hidden; }
-  .overflow-x-auto { overflow-x: auto; }
-  .relative { position: relative; }
-  .sticky { position: sticky; }
-  .fixed { position: fixed; }
-  .top-0 { top: 0; }
-  .bottom-0 { bottom: 0; }
-  .left-0 { left: 0; }
-  .right-0 { right: 0; }
-  .z-10 { z-index: 10; }
-  .z-20 { z-index: 20; }
-  .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .whitespace-nowrap { white-space: nowrap; }
+.page{display:none;min-height:100vh}
+.page.active{display:block}
 
-  /* Spacing */
-  .p-4 { padding: 16px; }
-  .p-5 { padding: 20px; }
-  .p-6 { padding: 24px; }
-  .p-8 { padding: 32px; }
-  .px-4 { padding-left: 16px; padding-right: 16px; }
-  .px-5 { padding-left: 20px; padding-right: 20px; }
-  .px-6 { padding-left: 24px; padding-right: 24px; }
-  .px-8 { padding-left: 32px; padding-right: 32px; }
-  .py-1 { padding-top: 4px; padding-bottom: 4px; }
-  .py-1\.5 { padding-top: 6px; padding-bottom: 6px; }
-  .py-2 { padding-top: 8px; padding-bottom: 8px; }
-  .py-3 { padding-top: 12px; padding-bottom: 12px; }
-  .py-4 { padding-top: 16px; padding-bottom: 16px; }
-  .py-6 { padding-top: 24px; padding-bottom: 24px; }
-  .py-8 { padding-top: 32px; padding-bottom: 32px; }
-  .py-12 { padding-top: 48px; padding-bottom: 48px; }
-  .py-20 { padding-top: 80px; padding-bottom: 80px; }
-  .mb-1 { margin-bottom: 4px; }
-  .mb-2 { margin-bottom: 8px; }
-  .mb-3 { margin-bottom: 12px; }
-  .mb-4 { margin-bottom: 16px; }
-  .mb-6 { margin-bottom: 24px; }
-  .mb-8 { margin-bottom: 32px; }
-  .mb-10 { margin-bottom: 40px; }
-  .mb-32 { margin-bottom: 128px; }
-  .mt-1 { margin-top: 4px; }
-  .mt-2 { margin-top: 8px; }
-  .mt-3 { margin-top: 12px; }
-  .mt-6 { margin-top: 24px; }
-  .ml-1 { margin-left: 4px; }
+/* Welcome */
+#welcome{background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;flex-direction:column}
+.welcome-header{padding:24px 32px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:40px;height:40px;background:#fbbf24;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.logo-text{color:#fff;font-weight:700;font-size:18px;line-height:1.2}
+.logo-sub{color:#94a3b8;font-size:12px}
+.manager-link{color:#475569;font-size:12px;cursor:pointer;background:none;border:none;transition:color 0.2s}
+.manager-link:hover{color:#94a3b8}
+.welcome-hero{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 16px}
+.welcome-inner{max-width:512px;width:100%;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.2);border-radius:9999px;padding:6px 16px;margin-bottom:24px}
+.badge span{color:#fbbf24;font-size:14px;font-weight:600}
+.welcome-title{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:#fff;margin-bottom:16px;line-height:1.1}
+.welcome-title .accent{color:#fbbf24}
+.welcome-desc{color:#94a3b8;font-size:18px;margin-bottom:40px;line-height:1.6}
+.steps-preview{display:flex;justify-content:center;gap:24px;margin-bottom:40px}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.step-num{width:40px;height:40px;background:rgba(251,191,36,0.2);border:1px solid rgba(251,191,36,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fbbf24;font-weight:700;font-size:14px}
+.step-label{color:#94a3b8;font-size:12px}
+.name-box{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;text-align:left;margin-bottom:16px}
+.name-label{color:#cbd5e1;font-size:14px;font-weight:600;display:block;margin-bottom:8px}
+.name-input{width:100%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:12px 16px;color:#fff;font-size:16px;outline:none;transition:border-color 0.2s}
+.name-input:focus{border-color:rgba(251,191,36,0.6)}
+.name-input::placeholder{color:#64748b}
+.btn-primary{width:100%;padding:16px;border-radius:16px;font-weight:700;font-size:18px;border:none;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;background:linear-gradient(135deg,#fbbf24,#d97706);color:#0f172a;cursor:pointer}
+.btn-primary:disabled{background:#334155;color:#64748b;cursor:not-allowed;opacity:0.6}
 
-  /* Typography */
-  .text-xs { font-size: 12px; line-height: 16px; }
-  .text-sm { font-size: 14px; line-height: 20px; }
-  .text-base { font-size: 16px; line-height: 24px; }
-  .text-lg { font-size: 18px; line-height: 28px; }
-  .text-xl { font-size: 20px; line-height: 28px; }
-  .text-2xl { font-size: 24px; line-height: 32px; }
-  .text-3xl { font-size: 30px; line-height: 36px; }
-  .text-4xl { font-size: 36px; line-height: 40px; }
-  .text-5xl { font-size: 48px; line-height: 1; }
-  .font-medium { font-weight: 500; }
-  .font-semibold { font-weight: 600; }
-  .font-bold { font-weight: 700; }
-  .font-black { font-weight: 900; }
-  .leading-tight { line-height: 1.25; }
-  .leading-snug { line-height: 1.375; }
-  .leading-relaxed { line-height: 1.625; }
-  .uppercase { text-transform: uppercase; }
-  .tracking-wide { letter-spacing: 0.025em; }
-  .tracking-wider { letter-spacing: 0.05em; }
-  .underline { text-decoration: underline; }
-  .underline-offset-2 { text-underline-offset: 2px; }
+/* Top nav */
+.topnav{background:#0f172a;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:0 4px 6px rgba(0,0,0,0.3)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo-icon{width:32px;height:32px;background:#fbbf24;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-logo-text{color:#fff;font-weight:700}
+.nav-greeting{color:#94a3b8;font-size:14px}
+.nav-greeting span{color:#fbbf24;font-weight:600}
 
-  /* Colors */
-  .text-white { color: #ffffff; }
-  .text-slate-400 { color: #94a3b8; }
-  .text-slate-500 { color: #64748b; }
-  .text-slate-600 { color: #475569; }
-  .text-slate-700 { color: #334155; }
-  .text-slate-800 { color: #1e293b; }
-  .text-slate-900 { color: #0f172a; }
-  .text-amber-400 { color: #fbbf24; }
-  .text-amber-600 { color: #d97706; }
-  .text-amber-700 { color: #b45309; }
-  .text-red-500 { color: #ef4444; }
-  .text-emerald-700 { color: #047857; }
-  .text-sky-700 { color: #0369a1; }
-  .text-violet-700 { color: #6d28d9; }
-  .text-rose-700 { color: #be123c; }
-  .text-pink-700 { color: #be185d; }
-  .text-indigo-700 { color: #4338ca; }
-  .text-teal-700 { color: #0f766e; }
-  .text-orange-700 { color: #c2410c; }
-  .text-lime-700 { color: #4d7c0f; }
-  .text-cyan-700 { color: #0e7490; }
+/* Step bar */
+.stepbar{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 0}
+.step-pill{display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;transition:all 0.2s}
+.step-pill.active{background:#fbbf24;color:#0f172a}
+.step-pill.done{background:#fbbf24;color:#0f172a}
+.step-pill.inactive{background:#e2e8f0;color:#94a3b8}
+.step-dot{width:16px;height:16px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.step-dot.active{background:#0f172a;color:#fbbf24}
+.step-dot.done{background:#0f172a;color:#fbbf24}
+.step-dot.inactive{background:#cbd5e1;color:#94a3b8}
+.step-line{width:32px;height:2px;border-radius:2px;transition:background 0.3s}
+.step-line.done{background:#fbbf24}
+.step-line.inactive{background:#e2e8f0}
 
-  .bg-white { background-color: #ffffff; }
-  .bg-slate-50 { background-color: #f8fafc; }
-  .bg-slate-100 { background-color: #f1f5f9; }
-  .bg-slate-200 { background-color: #e2e8f0; }
-  .bg-slate-900 { background-color: #0f172a; }
-  .bg-amber-50 { background-color: #fffbeb; }
-  .bg-amber-100 { background-color: #fef3c7; }
-  .bg-amber-400 { background-color: #fbbf24; }
-  .bg-amber-300 { background-color: #fcd34d; }
-  .bg-emerald-100 { background-color: #d1fae5; }
-  .bg-sky-100 { background-color: #e0f2fe; }
-  .bg-violet-100 { background-color: #ede9fe; }
-  .bg-rose-100 { background-color: #ffe4e6; }
-  .bg-pink-100 { background-color: #fce7f3; }
-  .bg-indigo-100 { background-color: #e0e7ff; }
-  .bg-teal-100 { background-color: #ccfbf1; }
-  .bg-orange-100 { background-color: #ffedd5; }
-  .bg-lime-100 { background-color: #ecfccb; }
-  .bg-cyan-100 { background-color: #cffafe; }
+/* Selection page */
+#select-page{background:#f8fafc}
+.page-inner{max-width:1152px;margin:0 auto;padding:24px 16px}
+.page-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#0f172a;margin-bottom:8px;text-align:center}
+.page-sub{color:#64748b;text-align:center}
+.select-all-btn{color:#d97706;font-size:14px;font-weight:600;text-decoration:underline;cursor:pointer;background:none;border:none;margin-top:8px;display:block;margin-left:auto;margin-right:auto}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;margin-bottom:120px;margin-top:24px}
+.project-card{text-align:left;padding:12px 16px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.15s;width:100%}
+.project-card:hover{border-color:#cbd5e1;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.project-card.selected{border-color:#fbbf24;background:#fffbeb;box-shadow:0 4px 12px rgba(251,191,36,0.2)}
+.project-emoji{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.project-title{font-weight:600;color:#0f172a;font-size:14px;flex:1;line-height:1.3;text-align:left}
+.project-check{width:20px;height:20px;border-radius:9999px;border:2px solid #cbd5e1;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#0f172a;transition:all 0.15s}
+.project-check.checked{border-color:#fbbf24;background:#fbbf24}
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(0,0,0,0.1);z-index:20}
+.selected-count{color:#334155}
+.selected-count strong{font-weight:900;font-size:24px;color:#0f172a}
+.selected-count span{color:#64748b;font-size:14px;margin-left:4px}
+.btn-continue{display:flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;font-weight:700;font-size:14px;border:none;cursor:pointer;background:linear-gradient(135deg,#fbbf24,#d97706);color:#0f172a;transition:all 0.2s}
+.btn-continue:disabled{background:#e2e8f0;color:#94a3b8;cursor:not-allowed}
 
-  /* Borders */
-  .border { border-width: 1px; border-style: solid; }
-  .border-2 { border-width: 2px; border-style: solid; }
-  .border-t { border-top-width: 1px; border-top-style: solid; }
-  .border-b { border-bottom-width: 1px; border-bottom-style: solid; }
-  .border-slate-100 { border-color: #f1f5f9; }
-  .border-slate-200 { border-color: #e2e8f0; }
-  .border-slate-300 { border-color: #cbd5e1; }
-  .border-amber-300 { border-color: #fcd34d; }
-  .border-amber-400 { border-color: #fbbf24; }
-  .divide-y > * + * { border-top: 1px solid; }
-  .divide-slate-50 > * + * { border-color: #f8fafc; }
+/* Ranking page */
+#rank-page{background:#f8fafc}
+.progress-bar-wrap{background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:16px;margin-bottom:24px;display:flex;align-items:center;gap:16px}
+.progress-track{flex:1;background:#f1f5f9;border-radius:9999px;height:10px;overflow:hidden}
+.progress-fill{height:100%;background:#fbbf24;border-radius:9999px;transition:width 0.5s ease}
+.progress-text{font-size:14px;font-weight:600;color:#475569;white-space:nowrap}
+.rating-cards{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.rating-card{background:#fff;border-radius:16px;border:2px solid #e2e8f0;padding:20px;transition:border-color 0.2s}
+.rating-card.rated{border-color:#fcd34d}
+.rating-card-inner{display:flex;align-items:center;gap:16px}
+.rating-emoji{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.rating-content{flex:1;min-width:0}
+.rating-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.rating-title{font-weight:700;color:#0f172a;font-size:14px;line-height:1.3}
+.rating-stars{display:flex;flex-direction:column;align-items:flex-end;gap:4;flex-shrink:0}
+.stars{display:flex;gap:4px}
+.star{font-size:28px;cursor:pointer;transition:transform 0.1s;color:#cbd5e1;background:none;border:none;line-height:1}
+.star:hover,.star.lit{color:#fbbf24;transform:scale(1.2)}
+.rating-label{font-size:12px;color:#d97706;font-weight:600}
+.rating-label.empty{color:#94a3b8}
+.rank-actions{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.btn-back{display:flex;align-items:center;gap:8px;padding:12px 20px;border-radius:12px;border:2px solid #e2e8f0;color:#475569;font-weight:600;font-size:14px;cursor:pointer;background:#fff;transition:all 0.2s}
+.btn-back:hover{border-color:#cbd5e1;background:#f8fafc}
+.btn-submit{display:flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;font-weight:700;font-size:14px;border:none;cursor:pointer;background:linear-gradient(135deg,#fbbf24,#d97706);color:#0f172a;transition:all 0.2s}
+.btn-submit:disabled{background:#e2e8f0;color:#94a3b8;cursor:not-allowed}
+.rank-hint{text-align:center;color:#94a3b8;font-size:12px;margin-top:12px}
 
-  /* Border radius */
-  .rounded { border-radius: 4px; }
-  .rounded-full { border-radius: 9999px; }
-  .rounded-lg { border-radius: 8px; }
-  .rounded-xl { border-radius: 12px; }
-  .rounded-2xl { border-radius: 16px; }
-  .rounded-3xl { border-radius: 24px; }
+/* Confirmation */
+#confirm-page{background:#f8fafc;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 16px}
+.confirm-inner{max-width:512px;width:100%;text-align:center}
+.confirm-check{width:80px;height:80px;background:#fbbf24;border-radius:9999px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:36px}
+.confirm-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:#0f172a;margin-bottom:8px}
+.confirm-desc{color:#64748b;margin-bottom:32px}
+.confirm-list{background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:24px;text-align:left;margin-top:24px}
+.confirm-list-title{font-weight:700;color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px}
+.confirm-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0}
+.confirm-item-left{display:flex;align-items:center;gap:8px;min-width:0}
+.confirm-item-emoji{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.confirm-item-title{font-weight:500;color:#1e293b;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.confirm-stars{display:flex;gap:2px;flex-shrink:0}
+.confirm-star{font-size:14px}
 
-  /* Shadows */
-  .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); }
-  .shadow-md { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); }
-  .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+/* Manager */
+#manager-login{background:#0f172a;display:flex;align-items:center;justify-content:center;padding:16px}
+.login-box{background:#fff;border-radius:24px;padding:32px;max-width:360px;width:100%;box-shadow:0 25px 50px rgba(0,0,0,0.5);text-align:center}
+.login-icon{width:56px;height:56px;background:#0f172a;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:24px}
+.login-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#0f172a;margin-bottom:4px}
+.login-desc{color:#94a3b8;font-size:14px;margin-bottom:24px}
+.login-input{width:100%;border:2px solid #e2e8f0;border-radius:12px;padding:12px 16px;margin-bottom:12px;font-size:14px;font-family:inherit;outline:none;color:#0f172a;transition:border-color 0.2s}
+.login-input:focus{border-color:#fbbf24}
+.login-error{color:#ef4444;font-size:12px;margin-bottom:12px}
+.btn-login{width:100%;padding:12px;border-radius:12px;font-weight:700;font-size:14px;border:none;cursor:pointer;background:linear-gradient(135deg,#fbbf24,#d97706);color:#0f172a;margin-bottom:12px;transition:all 0.2s}
+.btn-login:hover{opacity:0.9}
+.btn-back-login{color:#94a3b8;font-size:14px;cursor:pointer;background:none;border:none;transition:color 0.2s}
+.btn-back-login:hover{color:#64748b}
 
-  /* Sizing */
-  .w-4 { width: 16px; }
-  .w-5 { width: 20px; }
-  .w-6 { width: 24px; }
-  .w-7 { width: 28px; }
-  .w-8 { width: 32px; }
-  .w-10 { width: 40px; }
-  .w-14 { width: 56px; }
-  .w-20 { width: 80px; }
-  .h-0\.5 { height: 2px; }
-  .h-2\.5 { height: 10px; }
-  .h-4 { height: 16px; }
-  .h-5 { height: 20px; }
-  .h-6 { height: 24px; }
-  .h-7 { height: 28px; }
-  .h-8 { height: 32px; }
-  .h-10 { height: 40px; }
-  .h-14 { height: 56px; }
-  .h-20 { height: 80px; }
-  .h-full { height: 100%; }
+#manager-dash{background:#f8fafc}
+.dash-header{background:#0f172a;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:0 4px 6px rgba(0,0,0,0.3)}
+.dash-logo{display:flex;align-items:center;gap:12px}
+.dash-logo-icon{width:32px;height:32px;background:#fbbf24;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.dash-logo-text{color:#fff;font-weight:700;line-height:1.2}
+.dash-logo-sub{color:#94a3b8;font-size:12px}
+.dash-actions{display:flex;align-items:center;gap:12px}
+.btn-export{display:flex;align-items:center;gap:6px;background:#fbbf24;color:#0f172a;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:opacity 0.2s}
+.btn-export:hover{opacity:0.9}
+.btn-exit{color:#94a3b8;font-size:14px;cursor:pointer;background:none;border:none;transition:color 0.2s}
+.btn-exit:hover{color:#fff}
+.dash-inner{max-width:1152px;margin:0 auto;padding:32px 16px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:32px}
+.stat-card{background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:20px}
+.stat-card-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.stat-icon{width:36px;height:36px;background:#fef3c7;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.stat-label{color:#64748b;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
+.stat-value{font-size:28px;font-weight:900;color:#0f172a;line-height:1}
+.stat-sub{color:#94a3b8;font-size:12px;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.section-card{background:#fff;border-radius:16px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:24px}
+.section-header{padding:16px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between}
+.section-title{font-weight:700;color:#1e293b;font-size:15px}
+.sort-btns{display:flex;gap:8px}
+.sort-btn{font-size:12px;padding:6px 12px;border-radius:8px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;background:#f1f5f9;color:#475569}
+.sort-btn:hover{background:#e2e8f0}
+.sort-btn.active{background:#0f172a;color:#fff}
+.project-row{padding:16px 20px;display:flex;align-items:center;gap:16px;border-top:1px solid #f8fafc;transition:background 0.15s}
+.project-row:hover{background:#f8fafc}
+.project-rank{width:28px;height:28px;background:#f1f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#64748b;font-weight:700;font-size:12px;flex-shrink:0}
+.project-row-emoji{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.project-row-info{flex:1;min-width:0}
+.project-row-title{font-weight:600;color:#0f172a;font-size:14px}
+.project-row-employees{color:#94a3b8;font-size:12px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.project-row-dist{display:flex;gap:8px;margin-top:4px}
+.dist-item{font-size:11px;color:#94a3b8}
+.project-row-stats{display:flex;gap:24px;flex-shrink:0}
+.project-stat{text-align:center}
+.project-stat-val{font-size:22px;font-weight:900;color:#0f172a;line-height:1}
+.project-stat-val.amber{color:#d97706}
+.project-stat-label{font-size:11px;color:#94a3b8;margin-top:2px}
+.empty-state{background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:48px;text-align:center}
+.empty-emoji{font-size:48px;margin-bottom:16px}
+.empty-title{font-size:18px;font-weight:700;color:#475569;margin-bottom:8px}
+.empty-desc{color:#94a3b8;font-size:14px}
 
-  /* Buttons */
-  button { cursor: pointer; border: none; background: none; font-family: inherit; }
-  button:disabled { cursor: not-allowed; opacity: 0.4; }
-  input { font-family: inherit; }
-  table { border-collapse: collapse; width: 100%; }
-  th, td { text-align: left; }
+/* Submissions list */
+.sub-row{border-top:1px solid #f1f5f9;transition:background 0.15s}
+.sub-row-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.sub-row-header:hover{background:#fffbeb}
+.sub-row-header.open{background:#fffbeb}
+.sub-row-left{display:flex;align-items:center;gap:12px}
+.sub-avatar{width:36px;height:36px;border-radius:9999px;background:linear-gradient(135deg,#fbbf24,#d97706);display:flex;align-items:center;justify-content:center;color:#0f172a;font-weight:700;font-size:14px;flex-shrink:0}
+.sub-name{font-weight:700;color:#0f172a;font-size:14px}
+.sub-meta{color:#94a3b8;font-size:12px;margin-top:2px}
+.sub-row-right{display:flex;align-items:center;gap:12px}
+.sub-arrow{color:#94a3b8;font-size:18px;transition:transform 0.2s}
+.sub-arrow.open{transform:rotate(90deg)}
+.btn-delete{background:#fee2e2;color:#ef4444;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;flex-shrink:0}
+.btn-delete:hover{background:#fecaca;color:#dc2626}
+.sub-detail{background:#fffbeb;border-top:1px solid #fcd34d;padding:20px 24px;display:none}
+.sub-detail.open{display:block}
+.sub-detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.sub-detail-card{background:#fff;border-radius:12px;padding:12px 16px;border:1px solid #fcd34d;display:flex;align-items:center;gap:12px}
+.sub-detail-emoji{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sub-detail-info{flex:1;min-width:0}
+.sub-detail-title{font-weight:600;color:#0f172a;font-size:13px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sub-detail-stars{display:flex;align-items:center;gap:6px;margin-top:4px}
+.sub-detail-star{font-size:14px}
+.sub-detail-rating-label{font-size:11px;color:#d97706;font-weight:600}
+.sub-avg{margin-top:12px;padding:10px 16px;background:#fef3c7;border-radius:10px;display:flex;align-items:center;justify-content:space-between}
+.sub-avg-label{color:#92400e;font-size:13px;font-weight:600}
+.sub-avg-val{color:#92400e;font-size:18px;font-weight:900}
+.loading-state{text-align:center;padding:80px 0;color:#94a3b8;font-size:16px}
 
-  /* Transitions */
-  .transition-all { transition: all 0.2s ease; }
-  .transition-colors { transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
-  .transition-transform { transition: transform 0.2s ease; }
-  .duration-200 { transition-duration: 200ms; }
-  .duration-500 { transition-duration: 500ms; }
-
-  /* Hover */
-  .hover\:scale-125:hover { transform: scale(1.25); }
-  .hover\:-translate-y-0\.5:hover { transform: translateY(-2px); }
-  .hover\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-  .hover\:shadow-md:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-  .hover\:bg-slate-50:hover { background-color: #f8fafc; }
-  .hover\:bg-amber-300:hover { background-color: #fcd34d; }
-  .hover\:border-slate-300:hover { border-color: #cbd5e1; }
-  .hover\:text-white:hover { color: #ffffff; }
-  .hover\:text-slate-400:hover { color: #94a3b8; }
-  .hover\:text-slate-600:hover { color: #475569; }
-  .hover\:text-amber-700:hover { color: #b45309; }
-  .hover\:bg-slate-200:hover { background-color: #e2e8f0; }
-  .hover\:border-slate-200:hover { border-color: #e2e8f0; }
-  .focus\:outline-none:focus { outline: none; }
-
-  /* Grid */
-  @media (min-width: 768px) {
-    .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
-    .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-  }
-  @media (min-width: 1024px) {
-    .lg\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-  }
-  .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+/* Responsive */
+@media(max-width:640px){
+  .welcome-title{font-size:32px}
+  .steps-preview{gap:12px}
+  .welcome-header,.topnav,.dash-header{padding:12px 16px}
+  .dash-inner,.page-inner{padding:16px}
+  .stat-value{font-size:22px}
+  .project-row-stats{gap:12px}
+  .project-stat-val{font-size:18px}
+}
 </style>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel">
-const { useState, useEffect } = React;
 
+<!-- WELCOME -->
+<div id="welcome" class="page active">
+  <div class="welcome-header">
+    <div class="logo">
+      <div class="logo-icon">🏆</div>
+      <div>
+        <div class="logo-text">TeamGoals</div>
+        <div class="logo-sub">2026 Planning Tool</div>
+      </div>
+    </div>
+    <button class="manager-link" onclick="showManagerLogin()">Manager View</button>
+  </div>
+  <div class="welcome-hero">
+    <div class="welcome-inner">
+      <div class="badge"><span>2026 Goal Setting</span></div>
+      <h1 class="welcome-title">Shape Your <span class="accent">2026</span> Journey</h1>
+      <p class="welcome-desc">Browse this year's proposed key actions, select the ones that excite you, and rate your interest. Your input directly shapes project assignments.</p>
+      <div class="steps-preview">
+        <div class="step-item"><div class="step-num">1</div><div class="step-label">Browse & Select</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-label">Rate Projects</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-label">Submit</div></div>
+      </div>
+      <div class="name-box">
+        <label class="name-label">Your Full Name</label>
+        <input class="name-input" id="name-input" type="text" placeholder="e.g. Jane Smith" oninput="checkName()" onkeydown="if(event.key==='Enter')startApp()"/>
+      </div>
+      <button class="btn-primary" id="start-btn" onclick="startApp()" disabled>Get Started →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SELECT -->
+<div id="select-page" class="page">
+  <div class="topnav">
+    <div class="nav-logo"><div class="nav-logo-icon">🏆</div><span class="nav-logo-text">TeamGoals 2026</span></div>
+    <div class="nav-greeting">Hello, <span id="nav-name-select"></span></div>
+  </div>
+  <div class="page-inner">
+    <div id="stepbar-select"></div>
+    <div class="page-title">Select Your Projects</div>
+    <p class="page-sub">Click on any projects that interest you.</p>
+    <button class="select-all-btn" id="select-all-btn" onclick="toggleSelectAll()">Select All</button>
+    <div class="projects-grid" id="projects-grid"></div>
+  </div>
+  <div class="sticky-bar">
+    <div class="selected-count"><strong id="selected-count">0</strong><span id="selected-label"> projects selected</span></div>
+    <button class="btn-continue" id="continue-btn" onclick="goToRank()" disabled>Continue to Ranking →</button>
+  </div>
+</div>
+
+<!-- RANK -->
+<div id="rank-page" class="page">
+  <div class="topnav">
+    <div class="nav-logo"><div class="nav-logo-icon">🏆</div><span class="nav-logo-text">TeamGoals 2026</span></div>
+    <div class="nav-greeting">Hello, <span id="nav-name-rank"></span></div>
+  </div>
+  <div class="page-inner" style="max-width:768px">
+    <div id="stepbar-rank"></div>
+    <div class="page-title">Rate Your Projects</div>
+    <p class="page-sub">Rate your interest from 1 (low) to 5 (high).</p>
+    <div class="progress-bar-wrap" style="margin-top:24px">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span class="progress-text" id="progress-text">0 of 0 rated</span>
+    </div>
+    <div class="rating-cards" id="rating-cards"></div>
+    <div class="rank-actions">
+      <button class="btn-back" onclick="goToSelect()">← Back</button>
+      <button class="btn-submit" id="submit-btn" onclick="submitRatings()" disabled>Submit My Rankings →</button>
+    </div>
+    <p class="rank-hint" id="rank-hint"></p>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div id="confirm-page" class="page" style="min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center">
+  <div class="confirm-inner">
+    <div class="confirm-check">✓</div>
+    <h2 class="confirm-title" id="confirm-title">You're all set!</h2>
+    <p class="confirm-desc">Your responses have been saved. Your manager will review all team results and use them to shape project assignments.</p>
+    <div id="stepbar-confirm"></div>
+    <div class="confirm-list">
+      <div class="confirm-list-title">Your Submissions</div>
+      <div id="confirm-items"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MANAGER LOGIN -->
+<div id="manager-login" class="page" style="min-height:100vh">
+  <div class="login-box">
+    <div class="login-icon">🔒</div>
+    <h2 class="login-title">Manager Access</h2>
+    <p class="login-desc">Enter your password to view team results.</p>
+    <input class="login-input" id="pw-input" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <div class="login-error" id="login-error" style="display:none"></div>
+    <button class="btn-login" onclick="doLogin()">Access Dashboard</button>
+    <button class="btn-back-login" onclick="showPage('welcome')">← Back</button>
+  </div>
+</div>
+
+<!-- MANAGER DASHBOARD -->
+<div id="manager-dash" class="page">
+  <div class="dash-header">
+    <div class="dash-logo">
+      <div class="dash-logo-icon">📊</div>
+      <div>
+        <div class="dash-logo-text">Manager Dashboard</div>
+        <div class="dash-logo-sub">2026 Goals — Team Results</div>
+      </div>
+    </div>
+    <div class="dash-actions">
+      <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn-exit" onclick="showPage('welcome')">Exit</button>
+    </div>
+  </div>
+  <div class="dash-inner">
+    <div class="stats-grid" id="stats-grid"></div>
+    <div id="dash-content"></div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────────────
 const JSONBIN_KEY = "$2a$10$4XBuzRlSsNfSfc.xD58ZWOpzy5.av2aeY/PUDckl6JdzIuH2Lnt/u";
-const JSONBIN_URL = "https://api.jsonbin.io/v3/b";
 const MANAGER_PASSWORD = "manager2026";
-let JSONBIN_ID = null;
+let JSONBIN_ID = localStorage.getItem("jsonbin_id_2026") || null;
 
-async function getBinId() {
+const PROJECTS = [
+  {id:"proj-01",title:"Improve Vehicles Star Ratings",color:"#fef3c7",emoji:"⭐"},
+  {id:"proj-02",title:"Vehicles Training & Development (Phase 1)",color:"#e0f2fe",emoji:"📚"},
+  {id:"proj-03",title:"Define & Enforce T&P ICR-CR Process",color:"#f1f5f9",emoji:"🛡️"},
+  {id:"proj-04",title:"Revisit PD Process by PDC & Complexity",color:"#ede9fe",emoji:"⚙️"},
+  {id:"proj-05",title:"Product Development Innovation",color:"#ffe4e6",emoji:"⚡"},
+  {id:"proj-06",title:"Value Engineering (VE)",color:"#d1fae5",emoji:"📈"},
+  {id:"proj-07",title:"Community",color:"#fce7f3",emoji:"❤️"},
+  {id:"proj-08",title:"D3 Parts Library Database",color:"#e0e7ff",emoji:"🗄️"},
+  {id:"proj-09",title:"B2E: VC Revamp",color:"#ccfbf1",emoji:"🌐"},
+  {id:"proj-10",title:"Refine Handoff Process",color:"#ffedd5",emoji:"🔄"},
+  {id:"proj-11",title:"Sample Comment Tracking",color:"#ecfccb",emoji:"✅"},
+  {id:"proj-12",title:"Reduce Post-FPR Changes and Tool Modifications",color:"#cffafe",emoji:"🔧"},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let userName = "";
+let selectedIds = [];
+let ratings = {};
+let currentSort = "selections";
+let expandedSub = null;
+let allSubs = [];
+
+// ── JSONBIN ───────────────────────────────────────────────────────────────────
+async function getOrCreateBin() {
   if (JSONBIN_ID) return JSONBIN_ID;
-  // Try to find existing bin
   const res = await fetch("https://api.jsonbin.io/v3/b", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Master-Key": JSONBIN_KEY,
-      "X-Bin-Name": "2026-goals-submissions",
-      "X-Bin-Private": "false"
-    },
-    body: JSON.stringify({ submissions: [] })
+    method:"POST",
+    headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY,"X-Bin-Name":"2026-goals-submissions","X-Bin-Private":"false"},
+    body:JSON.stringify({submissions:[]})
   });
   const data = await res.json();
   JSONBIN_ID = data.metadata.id;
@@ -267,555 +394,450 @@ async function getBinId() {
   return JSONBIN_ID;
 }
 
-async function getOrCreateBin() {
-  const stored = localStorage.getItem("jsonbin_id_2026");
-  if (stored) { JSONBIN_ID = stored; return stored; }
-  return await getBinId();
-}
-
-const PROJECTS = [
-  { id: "proj-01", title: "Improve Vehicles Star Ratings",                  color: "#fef3c7", accent: "#d97706", emoji: "⭐" },
-  { id: "proj-02", title: "Vehicles Training & Development (Phase 1)",      color: "#e0f2fe", accent: "#0369a1", emoji: "📚" },
-  { id: "proj-03", title: "Define & Enforce T&P ICR-CR Process",            color: "#f1f5f9", accent: "#475569", emoji: "🛡️" },
-  { id: "proj-04", title: "Revisit PD Process by PDC & Complexity",         color: "#ede9fe", accent: "#6d28d9", emoji: "⚙️" },
-  { id: "proj-05", title: "Product Development Innovation",                 color: "#ffe4e6", accent: "#be123c", emoji: "⚡" },
-  { id: "proj-06", title: "Value Engineering (VE)",                         color: "#d1fae5", accent: "#047857", emoji: "📈" },
-  { id: "proj-07", title: "Community",                                      color: "#fce7f3", accent: "#be185d", emoji: "❤️" },
-  { id: "proj-08", title: "D3 Parts Library Database",                      color: "#e0e7ff", accent: "#4338ca", emoji: "🗄️" },
-  { id: "proj-09", title: "B2E: VC Revamp",                                 color: "#ccfbf1", accent: "#0f766e", emoji: "🌐" },
-  { id: "proj-10", title: "Refine Handoff Process",                         color: "#ffedd5", accent: "#c2410c", emoji: "🔄" },
-  { id: "proj-11", title: "Sample Comment Tracking",                        color: "#ecfccb", accent: "#4d7c0f", emoji: "✅" },
-  { id: "proj-12", title: "Reduce Post-FPR Changes and Tool Modifications", color: "#cffafe", accent: "#0e7490", emoji: "🔧" },
-];
-
-// ── Save to JSONBin ───────────────────────────────────────────────────────────
-async function saveSubmission(name, ratings) {
+async function saveSubmission(name, ratingsArr) {
   const binId = await getOrCreateBin();
-  // Read current data
-  const getRes = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
-    headers: { "X-Master-Key": JSONBIN_KEY }
-  });
+  const getRes = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{"X-Master-Key":JSONBIN_KEY}});
   const current = await getRes.json();
-  const submissions = current.record.submissions || [];
-  submissions.push({ employeeName: name, submittedAt: new Date().toISOString(), ratings });
-  // Write back
-  await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_KEY },
-    body: JSON.stringify({ submissions })
-  });
-  return true;
+  const subs = current.record.submissions || [];
+  subs.push({id:Date.now().toString(),employeeName:name,submittedAt:new Date().toISOString(),ratings:ratingsArr});
+  await fetch(`https://api.jsonbin.io/v3/b/${binId}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY},body:JSON.stringify({submissions:subs})});
 }
 
 async function loadAllSubmissions() {
-  try {
-    const binId = await getOrCreateBin();
-    const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
-      headers: { "X-Master-Key": JSONBIN_KEY }
-    });
-    const data = await res.json();
-    return data.record.submissions || [];
-  } catch(e) {
-    console.warn("Load error:", e);
-    return [];
+  const binId = await getOrCreateBin();
+  const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{"X-Master-Key":JSONBIN_KEY}});
+  const data = await res.json();
+  return data.record.submissions || [];
+}
+
+async function deleteSubmission(subId) {
+  const binId = await getOrCreateBin();
+  const getRes = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{"X-Master-Key":JSONBIN_KEY}});
+  const current = await getRes.json();
+  const subs = (current.record.submissions || []).filter(s => s.id !== subId);
+  await fetch(`https://api.jsonbin.io/v3/b/${binId}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY},body:JSON.stringify({submissions:subs})});
+  return subs;
+}
+
+// ── PAGE ROUTING ──────────────────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = '';
+  });
+  const page = document.getElementById(id);
+  page.classList.add('active');
+  if (id === 'confirm-page' || id === 'manager-login') page.style.display = 'flex';
+  window.scrollTo(0,0);
+}
+
+// ── STEP BAR ──────────────────────────────────────────────────────────────────
+function renderStepBar(containerId, step) {
+  const steps = ["Select Projects","Rate Them","Done"];
+  const el = document.getElementById(containerId);
+  el.className = 'stepbar';
+  el.innerHTML = steps.map((s,i) => {
+    const state = i+1 < step ? 'done' : i+1 === step ? 'active' : 'inactive';
+    const line = i < 2 ? `<div class="step-line ${i+1 < step ? 'done' : 'inactive'}"></div>` : '';
+    return `<div style="display:flex;align-items:center;gap:8px">
+      <div class="step-pill ${state}">
+        <span class="step-dot ${state}">${i+1}</span>${s}
+      </div>${line}
+    </div>`;
+  }).join('');
+}
+
+// ── WELCOME ───────────────────────────────────────────────────────────────────
+function checkName() {
+  const val = document.getElementById('name-input').value.trim();
+  document.getElementById('start-btn').disabled = !val;
+}
+
+function startApp() {
+  userName = document.getElementById('name-input').value.trim();
+  if (!userName) return;
+  selectedIds = [];
+  ratings = {};
+  document.getElementById('nav-name-select').textContent = userName;
+  renderStepBar('stepbar-select', 1);
+  renderProjectGrid();
+  showPage('select-page');
+}
+
+// ── SELECTION ─────────────────────────────────────────────────────────────────
+function renderProjectGrid() {
+  const grid = document.getElementById('projects-grid');
+  grid.innerHTML = PROJECTS.map(p => `
+    <button class="project-card ${selectedIds.includes(p.id)?'selected':''}" id="card-${p.id}" onclick="toggleProject('${p.id}')">
+      <div class="project-emoji" style="background:${p.color}">${p.emoji}</div>
+      <span class="project-title">${p.title}</span>
+      <div class="project-check ${selectedIds.includes(p.id)?'checked':''}" id="check-${p.id}">${selectedIds.includes(p.id)?'✓':''}</div>
+    </button>
+  `).join('');
+  updateSelectionUI();
+}
+
+function toggleProject(id) {
+  if (selectedIds.includes(id)) {
+    selectedIds = selectedIds.filter(x => x !== id);
+  } else {
+    selectedIds.push(id);
+  }
+  const card = document.getElementById(`card-${id}`);
+  const check = document.getElementById(`check-${id}`);
+  const sel = selectedIds.includes(id);
+  card.classList.toggle('selected', sel);
+  check.classList.toggle('checked', sel);
+  check.textContent = sel ? '✓' : '';
+  updateSelectionUI();
+}
+
+function updateSelectionUI() {
+  const count = selectedIds.length;
+  document.getElementById('selected-count').textContent = count;
+  document.getElementById('selected-label').textContent = ` project${count!==1?'s':''} selected`;
+  document.getElementById('continue-btn').disabled = count === 0;
+  document.getElementById('select-all-btn').textContent = selectedIds.length === PROJECTS.length ? 'Clear All' : 'Select All';
+}
+
+function toggleSelectAll() {
+  if (selectedIds.length === PROJECTS.length) {
+    selectedIds = [];
+  } else {
+    selectedIds = PROJECTS.map(p => p.id);
+  }
+  renderProjectGrid();
+}
+
+function goToRank() {
+  document.getElementById('nav-name-rank').textContent = userName;
+  renderStepBar('stepbar-rank', 2);
+  renderRatingCards();
+  showPage('rank-page');
+}
+
+// ── RANKING ───────────────────────────────────────────────────────────────────
+const ratingLabels = ["","Low","Below Avg","Average","Above Avg","High Interest"];
+
+function renderRatingCards() {
+  const selected = PROJECTS.filter(p => selectedIds.includes(p.id));
+  const container = document.getElementById('rating-cards');
+  container.innerHTML = selected.map(p => `
+    <div class="rating-card ${ratings[p.id]?'rated':''}" id="rcard-${p.id}">
+      <div class="rating-card-inner">
+        <div class="rating-emoji" style="background:${p.color}">${p.emoji}</div>
+        <div class="rating-content">
+          <div class="rating-row">
+            <h3 class="rating-title">${p.title}</h3>
+            <div class="rating-stars">
+              <div class="stars" id="stars-${p.id}">
+                ${[1,2,3,4,5].map(n => `<button class="star ${n<=(ratings[p.id]||0)?'lit':''}" id="star-${p.id}-${n}"
+                  onclick="setRating('${p.id}',${n})"
+                  onmouseover="hoverStars('${p.id}',${n})"
+                  onmouseout="unhoverStars('${p.id}')">★</button>`).join('')}
+              </div>
+              <span class="rating-label ${ratings[p.id]?'':'empty'}" id="rlabel-${p.id}">${ratings[p.id]?ratingLabels[ratings[p.id]]:'Not yet rated'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  updateRatingProgress();
+}
+
+function hoverStars(pid, n) {
+  for (let i=1;i<=5;i++) {
+    document.getElementById(`star-${pid}-${i}`).classList.toggle('lit', i<=n);
   }
 }
 
-// ── Step Bar ─────────────────────────────────────────────────────────────────
-function StepBar({ step }) {
-  const steps = ["Select Projects", "Rate Them", "Done"];
-  return (
-    <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,padding:"16px 0"}}>
-      {steps.map((s, i) => (
-        <div key={i} style={{display:"flex",alignItems:"center",gap:8}}>
-          <div style={{display:"flex",alignItems:"center",gap:6,padding:"4px 12px",borderRadius:9999,fontSize:12,fontWeight:600,background: i+1<=step?"#fbbf24":"#e2e8f0",color: i+1<=step?"#0f172a":"#94a3b8"}}>
-            <span style={{width:16,height:16,borderRadius:9999,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:700,background:i+1<=step?"#0f172a":"#cbd5e1",color:i+1<=step?"#fbbf24":"#94a3b8"}}>{i+1}</span>
-            {s}
-          </div>
-          {i < 2 && <div style={{width:32,height:2,borderRadius:2,background:i+1<step?"#fbbf24":"#e2e8f0"}}/>}
-        </div>
-      ))}
-    </div>
-  );
+function unhoverStars(pid) {
+  const val = ratings[pid] || 0;
+  for (let i=1;i<=5;i++) {
+    document.getElementById(`star-${pid}-${i}`).classList.toggle('lit', i<=val);
+  }
 }
 
-// ── Star Rating ───────────────────────────────────────────────────────────────
-function StarRating({ value, onChange }) {
-  const [hover, setHover] = useState(0);
-  return (
-    <div style={{display:"flex",gap:4}}>
-      {[1,2,3,4,5].map(n => (
-        <button key={n} onClick={() => onChange(n)} onMouseEnter={() => setHover(n)} onMouseLeave={() => setHover(0)}
-          style={{background:"none",border:"none",cursor:"pointer",fontSize:24,transition:"transform 0.1s",transform: n<=(hover||value)?"scale(1.2)":"scale(1)",color: n<=(hover||value)?"#fbbf24":"#cbd5e1"}}>
-          ★
-        </button>
-      ))}
-    </div>
-  );
+function setRating(pid, val) {
+  ratings[pid] = val;
+  document.getElementById(`rcard-${pid}`).classList.add('rated');
+  document.getElementById(`rlabel-${pid}`).textContent = ratingLabels[val];
+  document.getElementById(`rlabel-${pid}`).classList.remove('empty');
+  for (let i=1;i<=5;i++) {
+    document.getElementById(`star-${pid}-${i}`).classList.toggle('lit', i<=val);
+  }
+  updateRatingProgress();
 }
 
-// ── Welcome ───────────────────────────────────────────────────────────────────
-function WelcomeScreen({ onStart }) {
-  const [name, setName] = useState("");
-  return (
-    <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",background:"linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)"}}>
-      <div style={{padding:"24px 32px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-        <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <div style={{width:40,height:40,background:"#fbbf24",borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>🏆</div>
-          <div>
-            <div style={{color:"#fff",fontWeight:700,fontSize:18,lineHeight:1.2}}>TeamGoals</div>
-            <div style={{color:"#94a3b8",fontSize:12}}>2026 Planning Tool</div>
-          </div>
-        </div>
-        <button onClick={() => onStart("__manager__")} style={{color:"#475569",fontSize:12,cursor:"pointer",background:"none",border:"none"}}>Manager View</button>
-      </div>
-
-      <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",padding:"48px 16px"}}>
-        <div style={{maxWidth:512,width:"100%",textAlign:"center"}}>
-          <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(251,191,36,0.1)",border:"1px solid rgba(251,191,36,0.2)",borderRadius:9999,padding:"6px 16px",marginBottom:24}}>
-            <span style={{color:"#fbbf24",fontSize:14,fontWeight:600}}>2026 Goal Setting</span>
-          </div>
-          <h1 className="serif" style={{fontSize:48,fontWeight:900,color:"#fff",marginBottom:16,lineHeight:1.1}}>
-            Shape Your <span style={{color:"#fbbf24"}}>2026</span> Journey
-          </h1>
-          <p style={{color:"#94a3b8",fontSize:18,marginBottom:40,lineHeight:1.6}}>
-            Browse this year's proposed key actions, select the ones that excite you, and rate your interest.
-          </p>
-          <div style={{display:"flex",justifyContent:"center",gap:24,marginBottom:40}}>
-            {["Browse & Select","Rate Projects","Submit"].map((s,i) => (
-              <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8}}>
-                <div style={{width:40,height:40,background:"rgba(251,191,36,0.2)",border:"1px solid rgba(251,191,36,0.3)",borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",color:"#fbbf24",fontWeight:700,fontSize:14}}>{i+1}</div>
-                <span style={{color:"#94a3b8",fontSize:12}}>{s}</span>
-              </div>
-            ))}
-          </div>
-          <div style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:16,padding:24,textAlign:"left",marginBottom:16}}>
-            <label style={{color:"#cbd5e1",fontSize:14,fontWeight:600,display:"block",marginBottom:8}}>Your Full Name</label>
-            <input type="text" value={name} onChange={e=>setName(e.target.value)}
-              onKeyDown={e=>e.key==="Enter"&&name.trim()&&onStart(name.trim())}
-              placeholder="e.g. Jane Smith"
-              style={{width:"100%",background:"rgba(255,255,255,0.1)",border:"1px solid rgba(255,255,255,0.2)",borderRadius:12,padding:"12px 16px",color:"#fff",fontSize:16,outline:"none",fontFamily:"inherit"}}/>
-          </div>
-          <button onClick={() => onStart(name.trim())} disabled={!name.trim()}
-            style={{width:"100%",padding:"16px",borderRadius:16,fontWeight:700,fontSize:18,border:"none",cursor:name.trim()?"pointer":"not-allowed",display:"flex",alignItems:"center",justifyContent:"center",gap:8,
-              background:name.trim()?"linear-gradient(135deg,#fbbf24,#d97706)":"#334155",
-              color:name.trim()?"#0f172a":"#64748b",opacity:name.trim()?1:0.6}}>
-            Get Started →
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+function updateRatingProgress() {
+  const selected = PROJECTS.filter(p => selectedIds.includes(p.id));
+  const ratedCount = selected.filter(p => ratings[p.id]).length;
+  const total = selected.length;
+  const pct = total ? (ratedCount/total)*100 : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${ratedCount} of ${total} rated`;
+  const allDone = ratedCount === total;
+  document.getElementById('submit-btn').disabled = !allDone;
+  document.getElementById('rank-hint').textContent = allDone ? '' : `Please rate all ${total} selected projects before submitting.`;
 }
 
-// ── Selection Page ────────────────────────────────────────────────────────────
-function SelectionPage({ name, selected, setSelected, onContinue }) {
-  const allSelected = selected.length === PROJECTS.length;
-  const toggle = id => setSelected(prev => prev.includes(id) ? prev.filter(x=>x!==id) : [...prev,id]);
-  return (
-    <div style={{minHeight:"100vh",background:"#f8fafc"}}>
-      <div style={{background:"#0f172a",padding:"12px 32px",display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,zIndex:10,boxShadow:"0 4px 6px rgba(0,0,0,0.3)"}}>
-        <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <div style={{width:32,height:32,background:"#fbbf24",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>🏆</div>
-          <span style={{color:"#fff",fontWeight:700}}>TeamGoals 2026</span>
-        </div>
-        <div style={{color:"#94a3b8",fontSize:14}}>Hello, <span style={{color:"#fbbf24",fontWeight:600}}>{name}</span></div>
-      </div>
-      <div style={{maxWidth:1152,margin:"0 auto",padding:"24px 16px"}}>
-        <StepBar step={1}/>
-        <div style={{textAlign:"center",marginBottom:24}}>
-          <h2 className="serif" style={{fontSize:30,fontWeight:900,color:"#0f172a",marginBottom:8}}>Select Your Projects</h2>
-          <p style={{color:"#64748b"}}>Click on any projects that interest you.</p>
-          <button onClick={() => allSelected ? setSelected([]) : setSelected(PROJECTS.map(p=>p.id))}
-            style={{marginTop:8,color:"#d97706",fontSize:14,fontWeight:600,textDecoration:"underline",cursor:"pointer",background:"none",border:"none"}}>
-            {allSelected ? "Clear All" : "Select All"}
-          </button>
-        </div>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:8,marginBottom:120}}>
-          {PROJECTS.map(p => {
-            const sel = selected.includes(p.id);
-            return (
-              <button key={p.id} onClick={()=>toggle(p.id)}
-                style={{textAlign:"left",padding:"12px 16px",borderRadius:12,border:`2px solid ${sel?"#fbbf24":"#e2e8f0"}`,background:sel?"#fffbeb":"#fff",cursor:"pointer",display:"flex",alignItems:"center",gap:12,transition:"all 0.15s",boxShadow:sel?"0 4px 12px rgba(251,191,36,0.2)":"none"}}>
-                <div style={{width:36,height:36,background:p.color,borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0}}>{p.emoji}</div>
-                <span style={{fontWeight:600,color:"#0f172a",fontSize:14,flex:1,lineHeight:1.3}}>{p.title}</span>
-                <div style={{width:20,height:20,borderRadius:9999,border:`2px solid ${sel?"#fbbf24":"#cbd5e1"}`,background:sel?"#fbbf24":"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:12,color:"#0f172a"}}>
-                  {sel && "✓"}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-      <div style={{position:"fixed",bottom:0,left:0,right:0,background:"#fff",borderTop:"1px solid #e2e8f0",padding:"16px 24px",display:"flex",alignItems:"center",justifyContent:"space-between",boxShadow:"0 -4px 20px rgba(0,0,0,0.1)",zIndex:20}}>
-        <div style={{color:"#334155"}}>
-          <span style={{fontWeight:900,fontSize:24,color:"#0f172a"}}>{selected.length}</span>
-          <span style={{color:"#64748b",fontSize:14,marginLeft:4}}>project{selected.length!==1?"s":""} selected</span>
-        </div>
-        <button onClick={onContinue} disabled={selected.length===0}
-          style={{display:"flex",alignItems:"center",gap:8,padding:"12px 24px",borderRadius:12,fontWeight:700,fontSize:14,border:"none",cursor:selected.length>0?"pointer":"not-allowed",
-            background:selected.length>0?"linear-gradient(135deg,#fbbf24,#d97706)":"#e2e8f0",
-            color:selected.length>0?"#0f172a":"#94a3b8"}}>
-          Continue to Ranking →
-        </button>
-      </div>
-    </div>
-  );
+function goToSelect() { showPage('select-page'); }
+
+async function submitRatings() {
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+  const ratingData = selectedIds.map(id => ({
+    projectId: id,
+    title: PROJECTS.find(p=>p.id===id).title,
+    rating: ratings[id]
+  }));
+  saveSubmission(userName, ratingData).catch(e => console.warn('Save error:', e));
+  showConfirm(ratingData);
 }
 
-// ── Ranking Page ──────────────────────────────────────────────────────────────
-function RankingPage({ name, selected, ratings, setRatings, onBack, onSubmit, submitting }) {
-  const selectedProjects = PROJECTS.filter(p=>selected.includes(p.id));
-  const ratedCount = selectedProjects.filter(p=>ratings[p.id]).length;
-  const allRated = ratedCount === selectedProjects.length;
-  const labels = ["","Low","Below Avg","Average","Above Avg","High Interest"];
-  return (
-    <div style={{minHeight:"100vh",background:"#f8fafc"}}>
-      <div style={{background:"#0f172a",padding:"12px 32px",display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,zIndex:10,boxShadow:"0 4px 6px rgba(0,0,0,0.3)"}}>
-        <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <div style={{width:32,height:32,background:"#fbbf24",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>🏆</div>
-          <span style={{color:"#fff",fontWeight:700}}>TeamGoals 2026</span>
-        </div>
-        <div style={{color:"#94a3b8",fontSize:14}}>Hello, <span style={{color:"#fbbf24",fontWeight:600}}>{name}</span></div>
+// ── CONFIRM ───────────────────────────────────────────────────────────────────
+function showConfirm(ratingData) {
+  document.getElementById('confirm-title').textContent = `You're all set, ${userName.split(' ')[0]}!`;
+  renderStepBar('stepbar-confirm', 3);
+  const items = document.getElementById('confirm-items');
+  const sorted = [...ratingData].sort((a,b) => b.rating - a.rating);
+  items.innerHTML = sorted.map(r => {
+    const proj = PROJECTS.find(p=>p.id===r.projectId);
+    const stars = [1,2,3,4,5].map(n=>`<span class="confirm-star" style="color:${n<=r.rating?'#fbbf24':'#e2e8f0'}">★</span>`).join('');
+    return `<div class="confirm-item">
+      <div class="confirm-item-left">
+        <div class="confirm-item-emoji" style="background:${proj.color}">${proj.emoji}</div>
+        <span class="confirm-item-title">${r.title}</span>
       </div>
-      <div style={{maxWidth:768,margin:"0 auto",padding:"24px 16px"}}>
-        <StepBar step={2}/>
-        <div style={{textAlign:"center",marginBottom:24}}>
-          <h2 className="serif" style={{fontSize:30,fontWeight:900,color:"#0f172a",marginBottom:8}}>Rate Your Projects</h2>
-          <p style={{color:"#64748b"}}>Rate your interest from 1 (low) to 5 (high).</p>
-        </div>
-        <div style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",padding:16,marginBottom:24,display:"flex",alignItems:"center",gap:16}}>
-          <div style={{flex:1,background:"#f1f5f9",borderRadius:9999,height:10,overflow:"hidden"}}>
-            <div style={{height:"100%",background:"#fbbf24",borderRadius:9999,width:`${(ratedCount/selectedProjects.length)*100}%`,transition:"width 0.5s ease"}}/>
-          </div>
-          <span style={{fontSize:14,fontWeight:600,color:"#475569",whiteSpace:"nowrap"}}>{ratedCount} of {selectedProjects.length} rated</span>
-        </div>
-        <div style={{display:"flex",flexDirection:"column",gap:12,marginBottom:32}}>
-          {selectedProjects.map(p => {
-            const rated = ratings[p.id];
-            return (
-              <div key={p.id} style={{background:"#fff",borderRadius:16,border:`2px solid ${rated?"#fcd34d":"#e2e8f0"}`,padding:20,transition:"border-color 0.2s"}}>
-                <div style={{display:"flex",alignItems:"center",gap:16}}>
-                  <div style={{width:44,height:44,background:p.color,borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0}}>{p.emoji}</div>
-                  <div style={{flex:1,minWidth:0}}>
-                    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:16,flexWrap:"wrap"}}>
-                      <h3 style={{fontWeight:700,color:"#0f172a",fontSize:14,lineHeight:1.3}}>{p.title}</h3>
-                      <div style={{flexShrink:0,display:"flex",flexDirection:"column",alignItems:"flex-end",gap:4}}>
-                        <StarRating value={rated||0} onChange={v=>setRatings(prev=>({...prev,[p.id]:v}))}/>
-                        {rated
-                          ? <span style={{fontSize:12,color:"#d97706",fontWeight:600}}>{labels[rated]}</span>
-                          : <span style={{fontSize:12,color:"#94a3b8"}}>Not yet rated</span>}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:16}}>
-          <button onClick={onBack} style={{display:"flex",alignItems:"center",gap:8,padding:"12px 20px",borderRadius:12,border:"2px solid #e2e8f0",color:"#475569",fontWeight:600,fontSize:14,cursor:"pointer",background:"#fff"}}>
-            ← Back
-          </button>
-          <button onClick={onSubmit} disabled={!allRated||submitting}
-            style={{display:"flex",alignItems:"center",gap:8,padding:"12px 24px",borderRadius:12,fontWeight:700,fontSize:14,border:"none",
-              cursor:allRated&&!submitting?"pointer":"not-allowed",
-              background:allRated&&!submitting?"linear-gradient(135deg,#fbbf24,#d97706)":"#e2e8f0",
-              color:allRated&&!submitting?"#0f172a":"#94a3b8"}}>
-            {submitting ? "Saving..." : "Submit My Rankings →"}
-          </button>
-        </div>
-        {!allRated && <p style={{textAlign:"center",color:"#94a3b8",fontSize:12,marginTop:12}}>Please rate all {selectedProjects.length} selected projects before submitting.</p>}
-      </div>
-    </div>
-  );
+      <div class="confirm-stars">${stars}</div>
+    </div>`;
+  }).join('');
+  showPage('confirm-page');
 }
 
-// ── Confirmation ──────────────────────────────────────────────────────────────
-function ConfirmationScreen({ name, selected, ratings }) {
-  const selectedProjects = PROJECTS.filter(p=>selected.includes(p.id));
-  return (
-    <div style={{minHeight:"100vh",background:"#f8fafc",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"48px 16px"}}>
-      <div style={{maxWidth:512,width:"100%",textAlign:"center"}}>
-        <div style={{width:80,height:80,background:"#fbbf24",borderRadius:9999,display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 24px",fontSize:36}}>✓</div>
-        <h2 className="serif" style={{fontSize:36,fontWeight:900,color:"#0f172a",marginBottom:8}}>You're all set, {name.split(" ")[0]}!</h2>
-        <p style={{color:"#64748b",marginBottom:32}}>Your responses have been saved. Your manager will review all team results and use them to shape project assignments.</p>
-        <StepBar step={3}/>
-        <div style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",padding:24,textAlign:"left",marginTop:24}}>
-          <h3 style={{fontWeight:700,color:"#64748b",fontSize:12,textTransform:"uppercase",letterSpacing:"0.05em",marginBottom:16}}>Your Submissions</h3>
-          <div style={{display:"flex",flexDirection:"column",gap:12}}>
-            {selectedProjects.map(p => (
-              <div key={p.id} style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12}}>
-                <div style={{display:"flex",alignItems:"center",gap:8,minWidth:0}}>
-                  <div style={{width:32,height:32,background:p.color,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0}}>{p.emoji}</div>
-                  <span style={{fontWeight:500,color:"#1e293b",fontSize:14,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p.title}</span>
-                </div>
-                <div style={{display:"flex",gap:2,flexShrink:0}}>
-                  {[1,2,3,4,5].map(n=><span key={n} style={{fontSize:14,color:n<=ratings[p.id]?"#fbbf24":"#e2e8f0"}}>★</span>)}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+// ── MANAGER ───────────────────────────────────────────────────────────────────
+function showManagerLogin() { showPage('manager-login'); }
+
+function doLogin() {
+  const pw = document.getElementById('pw-input').value;
+  if (pw === MANAGER_PASSWORD) {
+    document.getElementById('login-error').style.display = 'none';
+    showPage('manager-dash');
+    loadDashboard();
+  } else {
+    const err = document.getElementById('login-error');
+    err.textContent = 'Incorrect password.';
+    err.style.display = 'block';
+  }
 }
 
-// ── Manager Dashboard ─────────────────────────────────────────────────────────
-function ManagerDashboard({ onBack }) {
-  const [pw, setPw] = useState("");
-  const [authed, setAuthed] = useState(false);
-  const [error, setError] = useState("");
-  const [subs, setSubs] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [sort, setSort] = useState("selections");
-  const [note, setNote] = useState("");
+async function loadDashboard() {
+  document.getElementById('dash-content').innerHTML = '<div class="loading-state">Loading results...</div>';
+  document.getElementById('stats-grid').innerHTML = '';
+  try {
+    allSubs = await loadAllSubmissions();
+    renderDashboard();
+  } catch(e) {
+    document.getElementById('dash-content').innerHTML = '<div class="loading-state">Error loading data. Please try again.</div>';
+  }
+}
 
-  const login = () => {
-    if (pw === MANAGER_PASSWORD) { setAuthed(true); setError(""); }
-    else setError("Incorrect password.");
-  };
-
-  useEffect(() => {
-    if (!authed) return;
-    setLoading(true);
-    loadAllSubmissions().then(data => { setSubs(data); setLoading(false); }).catch(() => setLoading(false));
-  }, [authed]);
-
+function renderDashboard() {
   const projectStats = PROJECTS.map(p => {
-    const selections = subs.filter(s => s.ratings.find(r => r.projectId === p.id || r.title === p.title));
-    const rated = selections.map(s => s.ratings.find(r => r.projectId === p.id || r.title === p.title).rating);
-    const avg = rated.length ? (rated.reduce((a,b)=>a+b,0)/rated.length).toFixed(1) : "—";
+    const selections = allSubs.filter(s => s.ratings.find(r => r.projectId===p.id||r.title===p.title));
+    const rated = selections.map(s => s.ratings.find(r=>r.projectId===p.id||r.title===p.title).rating);
+    const avg = rated.length ? (rated.reduce((a,b)=>a+b,0)/rated.length).toFixed(1) : null;
     const dist = [1,2,3,4,5].map(n => rated.filter(r=>r===n).length);
     const employees = selections.map(s => s.employeeName);
-    return { ...p, selections: selections.length, avg, dist, employees };
+    return {...p, selections:selections.length, avg, dist, employees};
   });
 
-  const sorted = [...projectStats].sort((a,b) => sort==="selections" ? b.selections-a.selections : parseFloat(b.avg||0)-parseFloat(a.avg||0));
+  const topProject = [...projectStats].sort((a,b)=>b.selections-a.selections)[0];
+  const topRated = [...projectStats].filter(p=>p.avg).sort((a,b)=>parseFloat(b.avg)-parseFloat(a.avg))[0];
 
-  const exportCSV = () => {
-    const now = new Date();
-    const dateStr = now.toLocaleDateString("en-US",{year:"numeric",month:"2-digit",day:"2-digit"}).replace(/\//g,"-");
-    const rawRows = [
-      ["2026 GOALS — TEAM INTEREST SURVEY RESULTS"],
-      [`Exported: ${now.toLocaleString()}`],
-      [`Total Submissions: ${subs.length}`],
-      [],
-      ["Employee Name","Submitted At",...PROJECTS.map(p=>p.title)]
-    ];
-    subs.forEach(s => {
-      const submitted = new Date(s.submittedAt).toLocaleString();
-      const row = [s.employeeName, submitted, ...PROJECTS.map(p => {
-        const r = s.ratings.find(x => x.projectId===p.id||x.title===p.title);
-        return r ? r.rating : "—";
-      })];
-      rawRows.push(row);
-    });
-    const summaryRows = [
-      [],[],["PROJECT SUMMARY"],
-      ["Project","Total Selections","Avg Rating","1 Star","2 Stars","3 Stars","4 Stars","5 Stars","Interested Employees"]
-    ];
-    PROJECTS.forEach(p => {
-      const s = projectStats.find(x=>x.id===p.id);
-      summaryRows.push([p.title, s.selections, s.avg, ...s.dist, s.employees.join(", ")]);
-    });
-    const allRows = [...rawRows,...summaryRows];
-    const csv = allRows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8;"}));
-    a.download = `2026-goals-results-${dateStr}.csv`;
-    a.click();
-  };
-
-  if (!authed) return (
-    <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#0f172a",padding:16}}>
-      <div style={{background:"#fff",borderRadius:24,padding:32,maxWidth:360,width:"100%",boxShadow:"0 25px 50px rgba(0,0,0,0.5)",textAlign:"center"}}>
-        <div style={{width:56,height:56,background:"#0f172a",borderRadius:16,display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px",fontSize:24}}>🔒</div>
-        <h2 className="serif" style={{fontSize:24,fontWeight:900,color:"#0f172a",marginBottom:4}}>Manager Access</h2>
-        <p style={{color:"#94a3b8",fontSize:14,marginBottom:24}}>Enter your password to view team results.</p>
-        <input type="password" value={pw} onChange={e=>setPw(e.target.value)} placeholder="Password"
-          onKeyDown={e=>e.key==="Enter"&&login()}
-          style={{width:"100%",border:"2px solid #e2e8f0",borderRadius:12,padding:"12px 16px",marginBottom:12,fontSize:14,fontFamily:"inherit",outline:"none",color:"#0f172a"}}/>
-        {error && <p style={{color:"#ef4444",fontSize:12,marginBottom:12}}>{error}</p>}
-        <button onClick={login} style={{width:"100%",padding:"12px",borderRadius:12,fontWeight:700,fontSize:14,border:"none",cursor:"pointer",background:"linear-gradient(135deg,#fbbf24,#d97706)",color:"#0f172a",marginBottom:12}}>
-          Access Dashboard
-        </button>
-        <button onClick={onBack} style={{color:"#94a3b8",fontSize:14,cursor:"pointer",background:"none",border:"none"}}>← Back</button>
-      </div>
+  // Stats cards
+  document.getElementById('stats-grid').innerHTML = [
+    {emoji:"👥",label:"Total Submissions",value:allSubs.length,sub:"team members responded"},
+    {emoji:"🏆",label:"Most Selected",value:topProject?.selections?`${topProject.selections}x`:"—",sub:topProject?.title||"No data yet"},
+    {emoji:"⭐",label:"Highest Rated",value:topRated?`${topRated.avg} ★`:"—",sub:topRated?.title||"No data yet"},
+  ].map(c=>`
+    <div class="stat-card">
+      <div class="stat-card-top"><div class="stat-icon">${c.emoji}</div><span class="stat-label">${c.label}</span></div>
+      <div class="stat-value">${c.value}</div>
+      <div class="stat-sub">${c.sub}</div>
     </div>
-  );
+  `).join('');
 
-  return (
-    <div style={{minHeight:"100vh",background:"#f8fafc"}}>
-      <div style={{background:"#0f172a",padding:"12px 32px",display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,zIndex:10,boxShadow:"0 4px 6px rgba(0,0,0,0.3)"}}>
-        <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <div style={{width:32,height:32,background:"#fbbf24",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>📊</div>
-          <div>
-            <div style={{color:"#fff",fontWeight:700,lineHeight:1.2}}>Manager Dashboard</div>
-            <div style={{color:"#94a3b8",fontSize:12}}>2026 Goals — Team Results</div>
-          </div>
-        </div>
-        <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <button onClick={exportCSV} style={{display:"flex",alignItems:"center",gap:6,background:"#fbbf24",color:"#0f172a",padding:"8px 16px",borderRadius:8,fontSize:14,fontWeight:700,cursor:"pointer",border:"none"}}>
-            ⬇ Export CSV
-          </button>
-          <button onClick={onBack} style={{color:"#94a3b8",fontSize:14,cursor:"pointer",background:"none",border:"none"}}>Exit</button>
+  if (allSubs.length === 0) {
+    document.getElementById('dash-content').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-emoji">📭</div>
+        <h3 class="empty-title">No submissions yet</h3>
+        <p class="empty-desc">Share the tool link with your team to start collecting responses.</p>
+      </div>`;
+    return;
+  }
+
+  // Sort projects
+  const sorted = [...projectStats].sort((a,b) => currentSort==='selections' ? b.selections-a.selections : parseFloat(b.avg||0)-parseFloat(a.avg||0));
+
+  document.getElementById('dash-content').innerHTML = `
+    <div class="section-card" style="margin-bottom:24px">
+      <div class="section-header">
+        <span class="section-title">Project Results</span>
+        <div class="sort-btns">
+          <button class="sort-btn ${currentSort==='selections'?'active':''}" onclick="setSort('selections')">By Selections</button>
+          <button class="sort-btn ${currentSort==='rating'?'active':''}" onclick="setSort('rating')">By Avg Rating</button>
         </div>
       </div>
-      <div style={{maxWidth:1152,margin:"0 auto",padding:32}}>
-        {note && (
-          <div style={{background:"#fef3c7",border:"1px solid #fcd34d",borderRadius:12,padding:"12px 16px",marginBottom:24,color:"#92400e",fontSize:14}}>
-            📋 {note} Your Google Sheet at the Apps Script URL receives all submissions directly.
+      ${sorted.map((p,idx)=>`
+        <div class="project-row">
+          <div class="project-rank">${idx+1}</div>
+          <div class="project-row-emoji" style="background:${p.color}">${p.emoji}</div>
+          <div class="project-row-info">
+            <div class="project-row-title">${p.title}</div>
+            <div class="project-row-employees">${p.employees.join(', ')||'No selections yet'}</div>
+            ${p.dist.some(n=>n>0)?`<div class="project-row-dist">${p.dist.map((c,i)=>`<span class="dist-item">★${i+1}: ${c}</span>`).join('')}</div>`:''}
           </div>
-        )}
-        {/* Summary Cards */}
-        {(() => {
-          const topProject = [...projectStats].sort((a,b)=>b.selections-a.selections)[0];
-          const topRated = [...projectStats].filter(p=>p.avg!=="—").sort((a,b)=>parseFloat(b.avg)-parseFloat(a.avg))[0];
-          return (
-            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))",gap:16,marginBottom:32}}>
-              {[
-                {emoji:"👥",label:"Total Submissions",value:subs.length,sub:"team members responded"},
-                {emoji:"🏆",label:"Most Selected",value:topProject?.selections?`${topProject.selections}x`:"—",sub:topProject?.title||"No data yet"},
-                {emoji:"⭐",label:"Highest Rated",value:topRated?`${topRated.avg} ★`:"—",sub:topRated?.title||"No data yet"},
-              ].map((c,i)=>(
-                <div key={i} style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",padding:20}}>
-                  <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:8}}>
-                    <div style={{width:36,height:36,background:"#fef3c7",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>{c.emoji}</div>
-                    <span style={{color:"#64748b",fontSize:11,fontWeight:600,textTransform:"uppercase",letterSpacing:"0.05em"}}>{c.label}</span>
-                  </div>
-                  <div style={{fontSize:28,fontWeight:900,color:"#0f172a",lineHeight:1}}>{c.value}</div>
-                  <div style={{color:"#94a3b8",fontSize:12,marginTop:4,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.sub}</div>
-                </div>
-              ))}
-            </div>
-          );
-        })()}
-
-        {loading ? (
-          <div style={{textAlign:"center",padding:"80px 0",color:"#94a3b8",fontSize:16}}>Loading results...</div>
-        ) : subs.length === 0 ? (
-          <div style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",padding:48,textAlign:"center"}}>
-            <div style={{fontSize:48,marginBottom:16}}>📭</div>
-            <h3 style={{fontSize:18,fontWeight:700,color:"#475569",marginBottom:8}}>No submissions yet</h3>
-            <p style={{color:"#94a3b8",fontSize:14}}>Share the tool link with your team to start collecting responses.</p>
+          <div class="project-row-stats">
+            <div class="project-stat"><div class="project-stat-val">${p.selections}</div><div class="project-stat-label">selections</div></div>
+            <div class="project-stat"><div class="project-stat-val amber">${p.avg||'—'}</div><div class="project-stat-label">avg rating</div></div>
           </div>
-        ) : (
-          <div>
-            {/* Sort controls */}
-            <div style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",overflow:"hidden",marginBottom:24}}>
-              <div style={{padding:"16px 20px",borderBottom:"1px solid #f1f5f9",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                <h3 style={{fontWeight:700,color:"#1e293b"}}>Project Results</h3>
-                <div style={{display:"flex",gap:8}}>
-                  <button onClick={()=>setSort("selections")} style={{fontSize:12,padding:"6px 12px",borderRadius:8,fontWeight:600,cursor:"pointer",border:"none",background:sort==="selections"?"#0f172a":"#f1f5f9",color:sort==="selections"?"#fff":"#475569"}}>By Selections</button>
-                  <button onClick={()=>setSort("rating")} style={{fontSize:12,padding:"6px 12px",borderRadius:8,fontWeight:600,cursor:"pointer",border:"none",background:sort==="rating"?"#0f172a":"#f1f5f9",color:sort==="rating"?"#fff":"#475569"}}>By Avg Rating</button>
-                </div>
-              </div>
-              {sorted.map((p,idx) => (
-                <div key={p.id} style={{padding:"16px 20px",display:"flex",alignItems:"center",gap:16,borderBottom:"1px solid #f8fafc",background:idx%2===0?"#fff":"#fafafa"}}>
-                  <div style={{width:28,height:28,background:"#f1f5f9",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",color:"#64748b",fontWeight:700,fontSize:12,flexShrink:0}}>{idx+1}</div>
-                  <div style={{width:40,height:40,background:p.color,borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>{p.emoji}</div>
-                  <div style={{flex:1,minWidth:0}}>
-                    <div style={{fontWeight:600,color:"#0f172a",fontSize:14}}>{p.title}</div>
-                    <div style={{color:"#94a3b8",fontSize:12,marginTop:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p.employees.join(", ")||"No selections yet"}</div>
-                    {p.dist.some(n=>n>0) && (
-                      <div style={{display:"flex",gap:8,marginTop:4}}>
-                        {p.dist.map((count,i)=>(
-                          <span key={i} style={{fontSize:11,color:"#94a3b8"}}>★{i+1}: {count}</span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <div style={{display:"flex",gap:24,flexShrink:0}}>
-                    <div style={{textAlign:"center"}}>
-                      <div style={{fontSize:22,fontWeight:900,color:"#0f172a"}}>{p.selections}</div>
-                      <div style={{fontSize:11,color:"#94a3b8"}}>selections</div>
-                    </div>
-                    <div style={{textAlign:"center"}}>
-                      <div style={{fontSize:22,fontWeight:900,color:"#d97706"}}>{p.avg}</div>
-                      <div style={{fontSize:11,color:"#94a3b8"}}>avg rating</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* All submissions table */}
-            <div style={{background:"#fff",borderRadius:16,border:"1px solid #e2e8f0",overflow:"hidden"}}>
-              <div style={{padding:"16px 20px",borderBottom:"1px solid #f1f5f9"}}>
-                <h3 style={{fontWeight:700,color:"#1e293b"}}>All Submissions</h3>
-              </div>
-              <div style={{overflowX:"auto"}}>
-                <table style={{width:"100%",borderCollapse:"collapse",fontSize:14}}>
-                  <thead>
-                    <tr style={{background:"#f8fafc"}}>
-                      <th style={{padding:"12px 20px",color:"#64748b",fontWeight:600,fontSize:12,textTransform:"uppercase",letterSpacing:"0.05em",textAlign:"left"}}>Employee</th>
-                      <th style={{padding:"12px 20px",color:"#64748b",fontWeight:600,fontSize:12,textTransform:"uppercase",letterSpacing:"0.05em",textAlign:"left"}}>Submitted</th>
-                      <th style={{padding:"12px 20px",color:"#64748b",fontWeight:600,fontSize:12,textTransform:"uppercase",letterSpacing:"0.05em",textAlign:"left"}}>Projects Rated</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {subs.map((s,i)=>(
-                      <tr key={i} style={{borderTop:"1px solid #f1f5f9"}}>
-                        <td style={{padding:"12px 20px",fontWeight:600,color:"#0f172a"}}>{s.employeeName}</td>
-                        <td style={{padding:"12px 20px",color:"#64748b"}}>{new Date(s.submittedAt).toLocaleString()}</td>
-                        <td style={{padding:"12px 20px"}}>
-                          <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
-                            {s.ratings.map((r,j)=>(
-                              <span key={j} style={{display:"inline-flex",alignItems:"center",gap:4,background:"#f1f5f9",color:"#475569",fontSize:12,padding:"2px 8px",borderRadius:9999}}>
-                                {r.title.split(" ").slice(0,3).join(" ")}… ★{r.rating}
-                              </span>
-                            ))}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+        </div>
+      `).join('')}
     </div>
-  );
+
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-title">All Submissions <span style="color:#94a3b8;font-weight:400;font-size:13px">— click a person to see full details</span></span>
+      </div>
+      ${allSubs.map((s,i)=>{
+        const initials = s.employeeName.split(' ').map(n=>n[0]||'').join('').slice(0,2).toUpperCase();
+        const sortedRatings = [...s.ratings].sort((a,b)=>b.rating-a.rating);
+        const avg = s.ratings.length ? (s.ratings.reduce((a,b)=>a+b.rating,0)/s.ratings.length).toFixed(1) : '—';
+        const subId = s.id || i.toString();
+        return `
+        <div class="sub-row" id="subrow-${i}">
+          <div class="sub-row-header" onclick="toggleSub(${i})" id="subheader-${i}">
+            <div class="sub-row-left">
+              <div class="sub-avatar">${initials}</div>
+              <div>
+                <div class="sub-name">${s.employeeName}</div>
+                <div class="sub-meta">${new Date(s.submittedAt).toLocaleString()} · ${s.ratings.length} project${s.ratings.length!==1?'s':''} rated</div>
+              </div>
+            </div>
+            <div class="sub-row-right">
+              <button class="btn-delete" onclick="event.stopPropagation();confirmDelete('${subId}',${i},'${s.employeeName.replace(/'/g,"\\'")}')">🗑 Delete</button>
+              <span class="sub-arrow" id="arrow-${i}">›</span>
+            </div>
+          </div>
+          <div class="sub-detail" id="subdetail-${i}">
+            <div class="sub-detail-grid">
+              ${sortedRatings.map(r=>{
+                const proj = PROJECTS.find(p=>p.id===r.projectId||p.title===r.title);
+                const stars = [1,2,3,4,5].map(n=>`<span class="sub-detail-star" style="color:${n<=r.rating?'#fbbf24':'#e2e8f0'}">★</span>`).join('');
+                return `<div class="sub-detail-card">
+                  <div class="sub-detail-emoji" style="background:${proj?.color||'#f1f5f9'}">${proj?.emoji||'📌'}</div>
+                  <div class="sub-detail-info">
+                    <div class="sub-detail-title">${r.title}</div>
+                    <div class="sub-detail-stars">${stars}<span class="sub-detail-rating-label">${ratingLabels[r.rating]}</span></div>
+                  </div>
+                </div>`;
+              }).join('')}
+            </div>
+            <div class="sub-avg">
+              <span class="sub-avg-label">Average rating across all selected projects</span>
+              <span class="sub-avg-val">${avg} ★</span>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
 }
 
-// ── Main App ──────────────────────────────────────────────────────────────────
-function App() {
-  const [page, setPage] = useState("welcome");
-  const [name, setName] = useState("");
-  const [selected, setSelected] = useState([]);
-  const [ratings, setRatings] = useState({});
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleStart = n => {
-    if (n === "__manager__") { setPage("manager"); return; }
-    setName(n); setPage("select");
-  };
-
-  const handleSubmit = async () => {
-    setSubmitting(true);
-    try {
-      const ratingData = selected.map(id => ({ projectId: id, title: PROJECTS.find(p=>p.id===id).title, rating: ratings[id] }));
-      saveSubmission(name, ratingData).catch(e => console.warn("Save error:", e));
-      setPage("confirm");
-    } catch(e) {
-      alert("There was an error. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  if (page==="manager") return <ManagerDashboard onBack={()=>setPage("welcome")}/>;
-  if (page==="welcome") return <WelcomeScreen onStart={handleStart}/>;
-  if (page==="select") return <SelectionPage name={name} selected={selected} setSelected={setSelected} onContinue={()=>setPage("rank")}/>;
-  if (page==="rank") return <RankingPage name={name} selected={selected} ratings={ratings} setRatings={setRatings} onBack={()=>setPage("select")} onSubmit={handleSubmit} submitting={submitting}/>;
-  if (page==="confirm") return <ConfirmationScreen name={name} selected={selected} ratings={ratings}/>;
+function toggleSub(i) {
+  const detail = document.getElementById(`subdetail-${i}`);
+  const arrow = document.getElementById(`arrow-${i}`);
+  const header = document.getElementById(`subheader-${i}`);
+  const isOpen = detail.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.sub-detail').forEach(d=>d.classList.remove('open'));
+  document.querySelectorAll('.sub-arrow').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.sub-row-header').forEach(h=>h.classList.remove('open'));
+  if (!isOpen) {
+    detail.classList.add('open');
+    arrow.classList.add('open');
+    header.classList.add('open');
+  }
 }
 
-ReactDOM.render(<App/>, document.getElementById("root"));
+function setSort(val) {
+  currentSort = val;
+  renderDashboard();
+}
+
+function confirmDelete(subId, idx, name) {
+  if (!confirm(`Delete submission from "${name}"? This cannot be undone.`)) return;
+  doDelete(subId, idx);
+}
+
+async function doDelete(subId, idx) {
+  try {
+    // If id not stored, fall back to index-based deletion
+    const binId = await getOrCreateBin();
+    const getRes = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{"X-Master-Key":JSONBIN_KEY}});
+    const current = await getRes.json();
+    let subs = current.record.submissions || [];
+    // Try by id first, then by index
+    const newSubs = subs.filter((s,i) => s.id !== subId && i !== idx || (s.id && s.id !== subId));
+    // Simple approach: remove by index if no id match
+    const filtered = subs.filter((s,i) => {
+      if (s.id) return s.id !== subId;
+      return i !== idx;
+    });
+    await fetch(`https://api.jsonbin.io/v3/b/${binId}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY},body:JSON.stringify({submissions:filtered})});
+    allSubs = filtered;
+    renderDashboard();
+  } catch(e) {
+    alert('Error deleting submission. Please try again.');
+  }
+}
+
+// ── EXPORT CSV ────────────────────────────────────────────────────────────────
+function exportCSV() {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString("en-US",{year:"numeric",month:"2-digit",day:"2-digit"}).replace(/\//g,"-");
+  const rows = [
+    ["2026 GOALS — TEAM INTEREST SURVEY RESULTS"],
+    [`Exported: ${now.toLocaleString()}`],
+    [`Total Submissions: ${allSubs.length}`],
+    [],
+    ["Employee Name","Submitted At",...PROJECTS.map(p=>p.title)]
+  ];
+  allSubs.forEach(s => {
+    const row = [s.employeeName, new Date(s.submittedAt).toLocaleString(), ...PROJECTS.map(p=>{
+      const r = s.ratings.find(x=>x.projectId===p.id||x.title===p.title);
+      return r ? r.rating : "—";
+    })];
+    rows.push(row);
+  });
+  // Summary
+  rows.push([],[],["PROJECT SUMMARY"],["Project","Total Selections","Avg Rating","1★","2★","3★","4★","5★","Interested Employees"]);
+  PROJECTS.forEach(p => {
+    const sels = allSubs.filter(s=>s.ratings.find(r=>r.projectId===p.id||r.title===p.title));
+    const rated = sels.map(s=>s.ratings.find(r=>r.projectId===p.id||r.title===p.title).rating);
+    const avg = rated.length?(rated.reduce((a,b)=>a+b,0)/rated.length).toFixed(1):"—";
+    const dist = [1,2,3,4,5].map(n=>rated.filter(r=>r===n).length);
+    rows.push([p.title,sels.length,avg,...dist,sels.map(s=>s.employeeName).join(", ")]);
+  });
+  const csv = rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8;"}));
+  a.download = `2026-goals-results-${dateStr}.csv`;
+  a.click();
+}
 </script>
 </body>
 </html>
