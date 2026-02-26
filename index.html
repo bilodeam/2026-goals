@@ -12,8 +12,11 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 input{font-family:inherit}
 table{border-collapse:collapse;width:100%}
 
-.page{display:none;min-height:100vh}
-.page.active{display:block}
+.page{display:none !important}
+.page.active{display:block !important;min-height:100vh}
+#confirm-page.active,#manager-login.active{display:flex !important;flex-direction:column;align-items:center;justify-content:center}
+#manager-login.active{background:#0f172a}
+#confirm-page.active{background:#f8fafc}
 
 /* Welcome */
 #welcome{background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;flex-direction:column}
@@ -304,7 +307,7 @@ table{border-collapse:collapse;width:100%}
 </div>
 
 <!-- CONFIRM -->
-<div id="confirm-page" class="page" style="min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center">
+<div id="confirm-page" class="page">
   <div class="confirm-inner">
     <div class="confirm-check">✓</div>
     <h2 class="confirm-title" id="confirm-title">You're all set!</h2>
@@ -318,7 +321,7 @@ table{border-collapse:collapse;width:100%}
 </div>
 
 <!-- MANAGER LOGIN -->
-<div id="manager-login" class="page" style="min-height:100vh">
+<div id="manager-login" class="page">
   <div class="login-box">
     <div class="login-icon">🔒</div>
     <h2 class="login-title">Manager Access</h2>
@@ -423,11 +426,11 @@ async function deleteSubmission(subId) {
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => {
     p.classList.remove('active');
-    p.style.display = '';
+    p.style.display = 'none';
   });
   const page = document.getElementById(id);
   page.classList.add('active');
-  if (id === 'confirm-page' || id === 'manager-login') page.style.display = 'flex';
+  page.style.display = (id === 'confirm-page' || id === 'manager-login') ? 'flex' : 'block';
   window.scrollTo(0,0);
 }
 
@@ -624,6 +627,7 @@ function doLogin() {
   const pw = document.getElementById('pw-input').value;
   if (pw === MANAGER_PASSWORD) {
     document.getElementById('login-error').style.display = 'none';
+    document.getElementById('pw-input').value = '';
     showPage('manager-dash');
     loadDashboard();
   } else {
