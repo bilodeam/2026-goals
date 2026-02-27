@@ -7,7 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#f8fafc;min-height:100vh}
+html,body{height:100%;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0f172a;min-height:100vh}
+#app{min-height:100vh}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
 input{font-family:inherit}
 table{border-collapse:collapse;width:100%}
@@ -35,8 +37,8 @@ table{border-collapse:collapse;width:100%}
 .welcome-title{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:#fff;margin-bottom:16px;line-height:1.1}
 .welcome-title .accent{color:#fbbf24}
 .welcome-desc{color:#94a3b8;font-size:18px;margin-bottom:40px;line-height:1.6}
-.steps-preview{display:flex;justify-content:center;gap:24px;margin-bottom:40px}
-.step-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.steps-preview{display:flex;justify-content:center;gap:0;margin-bottom:40px;width:100%;max-width:360px;margin-left:auto;margin-right:auto}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1}
 .step-num{width:40px;height:40px;background:rgba(251,191,36,0.2);border:1px solid rgba(251,191,36,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fbbf24;font-weight:700;font-size:14px}
 .step-label{color:#94a3b8;font-size:12px}
 .name-box{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;text-align:left;margin-bottom:16px}
@@ -276,6 +278,7 @@ table{border-collapse:collapse;width:100%}
     <div id="stepbar-select"></div>
     <div class="page-title">Select Your Projects</div>
     <p class="page-sub">Click on any projects that interest you.</p>
+    <p class="page-sub" style="margin-top:6px;color:#94a3b8;font-size:13px">Pick at least 6 — you'll rate them by interest level on the next step.</p>
     <button class="select-all-btn" id="select-all-btn" onclick="toggleSelectAll()">Select All</button>
     <div class="projects-grid" id="projects-grid"></div>
   </div>
@@ -478,7 +481,6 @@ function renderProjectGrid() {
   const grid = document.getElementById('projects-grid');
   grid.innerHTML = PROJECTS.map(p => `
     <button class="project-card ${selectedIds.includes(p.id)?'selected':''}" id="card-${p.id}" onclick="toggleProject('${p.id}')">
-      <div class="project-emoji" style="background:${p.color}">${p.emoji}</div>
       <span class="project-title">${p.title}</span>
       <div class="project-check ${selectedIds.includes(p.id)?'checked':''}" id="check-${p.id}">${selectedIds.includes(p.id)?'✓':''}</div>
     </button>
@@ -534,7 +536,7 @@ function renderRatingCards() {
   container.innerHTML = selected.map(p => `
     <div class="rating-card ${ratings[p.id]?'rated':''}" id="rcard-${p.id}">
       <div class="rating-card-inner">
-        <div class="rating-emoji" style="background:${p.color}">${p.emoji}</div>
+
         <div class="rating-content">
           <div class="rating-row">
             <h3 class="rating-title">${p.title}</h3>
@@ -617,7 +619,7 @@ function showConfirm(ratingData) {
     const stars = [1,2,3,4,5].map(n=>`<span class="confirm-star" style="color:${n<=r.rating?'#fbbf24':'#e2e8f0'}">★</span>`).join('');
     return `<div class="confirm-item">
       <div class="confirm-item-left">
-        <div class="confirm-item-emoji" style="background:${proj.color}">${proj.emoji}</div>
+
         <span class="confirm-item-title">${r.title}</span>
       </div>
       <div class="confirm-stars">${stars}</div>
@@ -705,7 +707,7 @@ function renderDashboard() {
       ${sorted.map((p,idx)=>`
         <div class="project-row">
           <div class="project-rank">${idx+1}</div>
-          <div class="project-row-emoji" style="background:${p.color}">${p.emoji}</div>
+
           <div class="project-row-info">
             <div class="project-row-title">${p.title}</div>
             <div class="project-row-employees">${p.employees.join(', ')||'No selections yet'}</div>
@@ -749,7 +751,7 @@ function renderDashboard() {
                 const proj = PROJECTS.find(p=>p.id===r.projectId||p.title===r.title);
                 const stars = [1,2,3,4,5].map(n=>`<span class="sub-detail-star" style="color:${n<=r.rating?'#fbbf24':'#e2e8f0'}">★</span>`).join('');
                 return `<div class="sub-detail-card">
-                  <div class="sub-detail-emoji" style="background:${proj?.color||'#f1f5f9'}">${proj?.emoji||'📌'}</div>
+
                   <div class="sub-detail-info">
                     <div class="sub-detail-title">${r.title}</div>
                     <div class="sub-detail-stars">${stars}<span class="sub-detail-rating-label">${ratingLabels[r.rating]}</span></div>
