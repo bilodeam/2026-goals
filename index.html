@@ -375,10 +375,10 @@ let selectedIds = [];
 let ratings = {};
 let currentSort = "selections";
 let allSubs = [];
-let customProject = null;
+let customProjects = []; // array of {id, title}
 
 function getAllProjects() {
-  return customProject ? [...PROJECTS, customProject] : [...PROJECTS];
+  return [...PROJECTS, ...customProjects];
 }
 
 // ── JSONBIN ───────────────────────────────────────────────────────────────────
@@ -444,7 +444,7 @@ function checkName() {
 function startApp() {
   userName = document.getElementById('name-input').value.trim();
   if (!userName) return;
-  selectedIds = []; ratings = {}; customProject = null;
+  selectedIds = []; ratings = {}; customProjects = [];
   document.getElementById('nav-name-select').textContent = userName;
   renderStepBar('stepbar-select', 1);
   renderProjectGrid();
@@ -454,34 +454,53 @@ function startApp() {
 // ── SELECTION ─────────────────────────────────────────────────────────────────
 function renderProjectGrid() {
   const grid = document.getElementById('projects-grid');
-  const customSel = selectedIds.includes('custom-01');
-
-  grid.innerHTML = PROJECTS.map(p => {
+  // Build regular project cards
+  let html = '';
+  PROJECTS.forEach(p => {
     const sel = selectedIds.includes(p.id);
-    return '<button class="project-card '+(sel?'selected':'')+'" id="card-'+p.id+'" onclick="toggleProject(\''+p.id+'\')">'+
-      '<span class="project-title">'+p.title+'</span>'+
-      '<div class="project-check '+(sel?'checked':'')+'" id="check-'+p.id+'">'+(sel?'✓':'')+'</div>'+
-    '</button>';
-  }).join('') +
+    html += '<button class="project-card' + (sel?' selected':'') + '" data-id="' + p.id + '">' +
+      '<span class="project-title">' + p.title + '</span>' +
+      '<div class="project-check' + (sel?' checked':'') + '">' + (sel?'✓':'') + '</div>' +
+      '</button>';
+  });
+  // Custom suggestions card
+  html += '<div class="project-card custom-card">' +
+    '<div style="display:flex;align-items:center;gap:8px;width:100%">' +
+      '<span style="font-size:18px">💡</span>' +
+      '<span style="font-size:13px;font-weight:600;color:#64748b">Suggest your own key actions</span>' +
+    '</div>';
+  customProjects.forEach(cp => {
+    const sel = selectedIds.includes(cp.id);
+    html += '<div style="display:flex;align-items:center;gap:8px;width:100%;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:8px 12px;">' +
+      '<span style="font-size:13px;font-weight:600;color:#0f172a;flex:1">' + cp.title + '</span>' +
+      '<button data-remove="' + cp.id + '" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:18px;padding:0 4px;line-height:1">×</button>' +
+      '<div data-toggle="' + cp.id + '" class="project-check' + (sel?' checked':'') + '" style="cursor:pointer">' + (sel?'✓':'') + '</div>' +
+    '</div>';
+  });
+  html += '<div style="display:flex;gap:8px;width:100%">' +
+    '<input id="custom-input" class="custom-input" type="text" placeholder="Type your idea and press Enter or + Add...">' +
+    '<button id="custom-add-btn" class="custom-add-btn">+ Add</button>' +
+  '</div></div>';
 
-  // ── Suggest your own card ──
-  '<div class="project-card custom-card">'+
-    '<div style="display:flex;align-items:center;gap:8px;width:100%">'+
-      '<span style="font-size:18px">💡</span>'+
-      '<span style="font-size:13px;font-weight:600;color:#64748b">Suggest your own key action</span>'+
-    '</div>'+
-    '<div style="display:flex;gap:8px;width:100%">'+
-      '<input id="custom-input" class="custom-input" type="text" placeholder="Type your idea here..." '+
-        'value="'+(customProject ? customProject.title : '')+'" onclick="event.stopPropagation()"/>'+
-      '<button class="custom-add-btn" onclick="event.stopPropagation();addCustomProject()">+ Add</button>'+
-    '</div>'+
-    (customProject ?
-      '<div onclick="event.stopPropagation();toggleProject(\'custom-01\')" style="display:flex;align-items:center;gap:8px;width:100%;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:8px 12px;cursor:pointer;">'+
-        '<span style="font-size:13px;font-weight:600;color:#0f172a;flex:1">'+customProject.title+'</span>'+
-        '<div class="project-check '+(customSel?'checked':'')+'">'+(customSel?'✓':'')+'</div>'+
-      '</div>'
-    : '')+
-  '</div>';
+  grid.innerHTML = html;
+
+  // Attach events after rendering (avoids all quoting issues)
+  grid.querySelectorAll('[data-id]').forEach(btn => {
+    btn.addEventListener('click', () => toggleProject(btn.dataset.id));
+  });
+  grid.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', e => { e.stopPropagation(); removeCustomProject(btn.dataset.remove); });
+  });
+  grid.querySelectorAll('[data-toggle]').forEach(div => {
+    div.addEventListener('click', e => { e.stopPropagation(); toggleProject(div.dataset.toggle); });
+  });
+  const ci = document.getElementById('custom-input');
+  if (ci) {
+    ci.addEventListener('click', e => e.stopPropagation());
+    ci.addEventListener('keydown', e => { if (e.key==='Enter') { e.stopPropagation(); addCustomProject(); } });
+  }
+  const cab = document.getElementById('custom-add-btn');
+  if (cab) cab.addEventListener('click', e => { e.stopPropagation(); addCustomProject(); });
 
   updateSelectionUI();
 }
@@ -490,25 +509,35 @@ function addCustomProject() {
   const input = document.getElementById('custom-input');
   const val = input ? input.value.trim() : '';
   if (!val) return;
-  customProject = {id:'custom-01', title:val};
-  if (!selectedIds.includes('custom-01')) selectedIds.push('custom-01');
+  if (customProjects.find(p => p.title.toLowerCase() === val.toLowerCase())) { input.value=''; return; }
+  const id = 'custom-'+Date.now();
+  customProjects.push({id, title:val});
+  selectedIds.push(id);
+  input.value = '';
+  renderProjectGrid();
+}
+
+function removeCustomProject(id) {
+  customProjects = customProjects.filter(p => p.id !== id);
+  selectedIds = selectedIds.filter(x => x !== id);
+  delete ratings[id];
   renderProjectGrid();
 }
 
 function toggleProject(id) {
-  if (id === 'custom-01' && !customProject) return;
+  if (id.startsWith('custom-') && !customProjects.find(p=>p.id===id)) return;
   if (selectedIds.includes(id)) {
     selectedIds = selectedIds.filter(x => x !== id);
   } else {
     selectedIds.push(id);
   }
-  if (id === 'custom-01') { renderProjectGrid(); return; }
-  const card = document.getElementById('card-'+id);
-  const check = document.getElementById('check-'+id);
+  if (id.startsWith('custom-')) { renderProjectGrid(); return; }
+  // Update regular card visually
+  const card = document.querySelector('[data-id="'+id+'"]');
+  const check = card ? card.querySelector('.project-check') : null;
   const sel = selectedIds.includes(id);
-  card.classList.toggle('selected', sel);
-  check.classList.toggle('checked', sel);
-  check.textContent = sel ? '✓' : '';
+  if (card) card.classList.toggle('selected', sel);
+  if (check) { check.classList.toggle('checked', sel); check.textContent = sel ? '✓' : ''; }
   updateSelectionUI();
 }
 
@@ -517,7 +546,8 @@ function updateSelectionUI() {
   document.getElementById('selected-count').textContent = count;
   document.getElementById('selected-label').textContent = ' project'+(count!==1?'s':'')+' selected';
   document.getElementById('continue-btn').disabled = count === 0;
-  document.getElementById('select-all-btn').textContent = selectedIds.length === PROJECTS.length ? 'Clear All' : 'Select All';
+  const regularSelected = selectedIds.filter(id => !id.startsWith('custom-')).length;
+  document.getElementById('select-all-btn').textContent = regularSelected === PROJECTS.length ? 'Clear All' : 'Select All';
 }
 
 function toggleSelectAll() {
