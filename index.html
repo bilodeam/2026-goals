@@ -21,7 +21,6 @@ table{border-collapse:collapse;width:100%}
 #manager-login.active{background:#0f172a}
 #confirm-page.active{background:#f8fafc}
 
-/* Welcome */
 #welcome{background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;flex-direction:column}
 .welcome-header{padding:24px 32px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:12px}
@@ -49,7 +48,6 @@ table{border-collapse:collapse;width:100%}
 .btn-primary{width:100%;padding:16px;border-radius:16px;font-weight:700;font-size:18px;border:none;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;background:linear-gradient(135deg,#fbbf24,#d97706);color:#0f172a;cursor:pointer}
 .btn-primary:disabled{background:#334155;color:#64748b;cursor:not-allowed;opacity:0.6}
 
-/* Top nav */
 .topnav{background:#0f172a;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:0 4px 6px rgba(0,0,0,0.3)}
 .nav-logo{display:flex;align-items:center;gap:12px}
 .nav-logo-icon{width:32px;height:32px;background:#fbbf24;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
@@ -57,7 +55,6 @@ table{border-collapse:collapse;width:100%}
 .nav-greeting{color:#94a3b8;font-size:14px}
 .nav-greeting span{color:#fbbf24;font-weight:600}
 
-/* Step bar */
 .stepbar{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 0}
 .step-pill{display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;transition:all 0.2s}
 .step-pill.active{background:#fbbf24;color:#0f172a}
@@ -71,7 +68,6 @@ table{border-collapse:collapse;width:100%}
 .step-line.done{background:#fbbf24}
 .step-line.inactive{background:#e2e8f0}
 
-/* Selection page */
 #select-page{background:#f8fafc}
 .page-inner{max-width:1152px;margin:0 auto;padding:24px 16px}
 .page-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#0f172a;margin-bottom:8px;text-align:center}
@@ -81,7 +77,6 @@ table{border-collapse:collapse;width:100%}
 .project-card{text-align:left;padding:12px 16px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.15s;width:100%}
 .project-card:hover{border-color:#cbd5e1;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
 .project-card.selected{border-color:#fbbf24;background:#fffbeb;box-shadow:0 4px 12px rgba(251,191,36,0.2)}
-.project-emoji{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .project-title{font-weight:600;color:#0f172a;font-size:14px;flex:1;line-height:1.3;text-align:left}
 .project-check{width:20px;height:20px;border-radius:9999px;border:2px solid #cbd5e1;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#0f172a;transition:all 0.15s}
 .project-check.checked{border-color:#fbbf24;background:#fbbf24}
@@ -92,7 +87,14 @@ table{border-collapse:collapse;width:100%}
 .btn-continue{display:flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;font-weight:700;font-size:14px;border:none;cursor:pointer;background:linear-gradient(135deg,#fbbf24,#d97706);color:#0f172a;transition:all 0.2s}
 .btn-continue:disabled{background:#e2e8f0;color:#94a3b8;cursor:not-allowed}
 
-/* Ranking page */
+/* Custom suggest card */
+.custom-card{border-style:dashed;border-color:#cbd5e1;background:#f8fafc;cursor:default;flex-direction:column;align-items:flex-start;gap:10px}
+.custom-card:hover{border-color:#94a3b8;box-shadow:none}
+.custom-input{flex:1;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;font-size:13px;font-family:inherit;outline:none;color:#0f172a;background:#fff;transition:border-color 0.2s}
+.custom-input:focus{border-color:#fbbf24}
+.custom-add-btn{background:#0f172a;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:opacity 0.2s}
+.custom-add-btn:hover{opacity:0.85}
+
 #rank-page{background:#f8fafc}
 .progress-bar-wrap{background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:16px;margin-bottom:24px;display:flex;align-items:center;gap:16px}
 .progress-track{flex:1;background:#f1f5f9;border-radius:9999px;height:10px;overflow:hidden}
@@ -102,7 +104,6 @@ table{border-collapse:collapse;width:100%}
 .rating-card{background:#fff;border-radius:16px;border:2px solid #e2e8f0;padding:20px;transition:border-color 0.2s}
 .rating-card.rated{border-color:#fcd34d}
 .rating-card-inner{display:flex;align-items:center;gap:16px}
-.rating-emoji{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .rating-content{flex:1;min-width:0}
 .rating-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .rating-title{font-weight:700;color:#0f172a;font-size:14px;line-height:1.3}
@@ -119,7 +120,6 @@ table{border-collapse:collapse;width:100%}
 .btn-submit:disabled{background:#e2e8f0;color:#94a3b8;cursor:not-allowed}
 .rank-hint{text-align:center;color:#94a3b8;font-size:12px;margin-top:12px}
 
-/* Confirmation */
 #confirm-page{background:#f8fafc;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 16px}
 .confirm-inner{max-width:512px;width:100%;text-align:center}
 .confirm-check{width:80px;height:80px;background:#fbbf24;border-radius:9999px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:36px}
@@ -129,12 +129,10 @@ table{border-collapse:collapse;width:100%}
 .confirm-list-title{font-weight:700;color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px}
 .confirm-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0}
 .confirm-item-left{display:flex;align-items:center;gap:8px;min-width:0}
-.confirm-item-emoji{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .confirm-item-title{font-weight:500;color:#1e293b;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .confirm-stars{display:flex;gap:2px;flex-shrink:0}
 .confirm-star{font-size:14px}
 
-/* Manager */
 #manager-login{background:#0f172a;display:flex;align-items:center;justify-content:center;padding:16px}
 .login-box{background:#fff;border-radius:24px;padding:32px;max-width:360px;width:100%;box-shadow:0 25px 50px rgba(0,0,0,0.5);text-align:center}
 .login-icon{width:56px;height:56px;background:#0f172a;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:24px}
@@ -177,7 +175,6 @@ table{border-collapse:collapse;width:100%}
 .project-row{padding:16px 20px;display:flex;align-items:center;gap:16px;border-top:1px solid #f8fafc;transition:background 0.15s}
 .project-row:hover{background:#f8fafc}
 .project-rank{width:28px;height:28px;background:#f1f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#64748b;font-weight:700;font-size:12px;flex-shrink:0}
-.project-row-emoji{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .project-row-info{flex:1;min-width:0}
 .project-row-title{font-weight:600;color:#0f172a;font-size:14px}
 .project-row-employees{color:#94a3b8;font-size:12px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -193,8 +190,7 @@ table{border-collapse:collapse;width:100%}
 .empty-title{font-size:18px;font-weight:700;color:#475569;margin-bottom:8px}
 .empty-desc{color:#94a3b8;font-size:14px}
 
-/* Submissions list */
-.sub-row{border-top:1px solid #f1f5f9;transition:background 0.15s}
+.sub-row{border-top:1px solid #f1f5f9}
 .sub-row-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
 .sub-row-header:hover{background:#fffbeb}
 .sub-row-header.open{background:#fffbeb}
@@ -205,15 +201,12 @@ table{border-collapse:collapse;width:100%}
 .sub-row-right{display:flex;align-items:center;gap:12px}
 .sub-arrow{color:#94a3b8;font-size:18px;transition:transform 0.2s}
 .sub-arrow.open{transform:rotate(90deg)}
-.btn-delete{background:#fee2e2;color:#ef4444;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;flex-shrink:0}
-.btn-delete:hover{background:#fecaca;color:#dc2626}
 .sub-detail{background:#fffbeb;border-top:1px solid #fcd34d;padding:20px 24px;display:none}
 .sub-detail.open{display:block}
 .sub-detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
-.sub-detail-card{background:#fff;border-radius:12px;padding:12px 16px;border:1px solid #fcd34d;display:flex;align-items:center;gap:12px}
-.sub-detail-emoji{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sub-detail-card{background:#fff;border-radius:12px;padding:12px 16px;border:1px solid #fcd34d}
 .sub-detail-info{flex:1;min-width:0}
-.sub-detail-title{font-weight:600;color:#0f172a;font-size:13px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sub-detail-title{font-weight:600;color:#0f172a;font-size:13px;line-height:1.3}
 .sub-detail-stars{display:flex;align-items:center;gap:6px;margin-top:4px}
 .sub-detail-star{font-size:14px}
 .sub-detail-rating-label{font-size:11px;color:#d97706;font-weight:600}
@@ -222,10 +215,8 @@ table{border-collapse:collapse;width:100%}
 .sub-avg-val{color:#92400e;font-size:18px;font-weight:900}
 .loading-state{text-align:center;padding:80px 0;color:#94a3b8;font-size:16px}
 
-/* Responsive */
 @media(max-width:640px){
   .welcome-title{font-size:32px}
-  .steps-preview{gap:12px}
   .welcome-header,.topnav,.dash-header{padding:12px 16px}
   .dash-inner,.page-inner{padding:16px}
   .stat-value{font-size:22px}
@@ -235,8 +226,8 @@ table{border-collapse:collapse;width:100%}
 </style>
 </head>
 <body>
-
 <div id="app">
+
 <!-- WELCOME -->
 <div id="welcome" class="page active">
   <div class="welcome-header">
@@ -359,34 +350,36 @@ table{border-collapse:collapse;width:100%}
   </div>
 </div>
 
-</div><!-- end #app -->
+</div>
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────────────────
 const JSONBIN_KEY = "$2a$10$4XBuzRlSsNfSfc.xD58ZWOpzy5.av2aeY/PUDckl6JdzIuH2Lnt/u";
 const MANAGER_PASSWORD = "manager2026";
 let JSONBIN_ID = localStorage.getItem("jsonbin_id_2026") || null;
 
 const PROJECTS = [
-  {id:"proj-01",title:"Improve Vehicles Star Ratings",color:"#fef3c7",emoji:"⭐"},
-  {id:"proj-02",title:"Vehicles Training & Development",color:"#e0f2fe",emoji:"📚"},
-  {id:"proj-03",title:"Define & Enforce T&P ICR-DSP-CR Process",color:"#f1f5f9",emoji:"🛡️"},
-  {id:"proj-04",title:"Revisit PD Process by PDC & Complexity",color:"#ede9fe",emoji:"⚙️"},
-  {id:"proj-05",title:"Product Development Innovation",color:"#ffe4e6",emoji:"⚡"},
-  {id:"proj-06",title:"Value Engineering (VE)",color:"#d1fae5",emoji:"📈"},
-  {id:"proj-07",title:"Vehicles Community",color:"#fce7f3",emoji:"❤️"},
-  {id:"proj-08",title:"D3 Parts Library Database",color:"#e0e7ff",emoji:"🗄️"},
-  {id:"proj-10",title:"Refine MOA Handoff Process",color:"#ffedd5",emoji:"🔄"},
-  {id:"proj-11",title:"Sample Comment Tracking",color:"#ecfccb",emoji:"✅"},
-  {id:"proj-12",title:"Reduce Post-FPR Changes and Tool Modifications",color:"#cffafe",emoji:"🔧"},
+  {id:"proj-01",title:"Improve Vehicles Star Ratings"},
+  {id:"proj-02",title:"Vehicles Training & Development"},
+  {id:"proj-03",title:"Define & Enforce T&P ICR-DSP-CR Process"},
+  {id:"proj-04",title:"Revisit PD Process by PDC & Complexity"},
+  {id:"proj-05",title:"Product Development Innovation"},
+  {id:"proj-06",title:"Value Engineering (VE)"},
+  {id:"proj-07",title:"Vehicles Community"},
+  {id:"proj-08",title:"D3 Parts Library Database"},
+  {id:"proj-10",title:"Refine MOA Handoff Process"},
+  {id:"proj-11",title:"Sample Comment Tracking"},
+  {id:"proj-12",title:"Reduce Post-FPR Changes and Tool Modifications"},
 ];
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
 let userName = "";
 let selectedIds = [];
 let ratings = {};
 let currentSort = "selections";
-let expandedSub = null;
 let allSubs = [];
+let customProject = null;
+
+function getAllProjects() {
+  return customProject ? [...PROJECTS, customProject] : [...PROJECTS];
+}
 
 // ── JSONBIN ───────────────────────────────────────────────────────────────────
 async function getOrCreateBin() {
@@ -404,37 +397,26 @@ async function getOrCreateBin() {
 
 async function saveSubmission(name, ratingsArr) {
   const binId = await getOrCreateBin();
-  const getRes = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{"X-Master-Key":JSONBIN_KEY}});
+  const getRes = await fetch("https://api.jsonbin.io/v3/b/"+binId+"/latest",{headers:{"X-Master-Key":JSONBIN_KEY}});
   const current = await getRes.json();
   const subs = current.record.submissions || [];
   subs.push({id:Date.now().toString(),employeeName:name,submittedAt:new Date().toISOString(),ratings:ratingsArr});
-  await fetch(`https://api.jsonbin.io/v3/b/${binId}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY},body:JSON.stringify({submissions:subs})});
+  await fetch("https://api.jsonbin.io/v3/b/"+binId,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY},body:JSON.stringify({submissions:subs})});
 }
 
 async function loadAllSubmissions() {
   const binId = await getOrCreateBin();
-  const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{"X-Master-Key":JSONBIN_KEY}});
+  const res = await fetch("https://api.jsonbin.io/v3/b/"+binId+"/latest",{headers:{"X-Master-Key":JSONBIN_KEY}});
   const data = await res.json();
   return data.record.submissions || [];
 }
 
-async function deleteSubmission(subId) {
-  const binId = await getOrCreateBin();
-  const getRes = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{"X-Master-Key":JSONBIN_KEY}});
-  const current = await getRes.json();
-  const subs = (current.record.submissions || []).filter(s => s.id !== subId);
-  await fetch(`https://api.jsonbin.io/v3/b/${binId}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY},body:JSON.stringify({submissions:subs})});
-  return subs;
-}
-
 // ── PAGE ROUTING ──────────────────────────────────────────────────────────────
 function showPage(id) {
-  // Hide ALL pages completely
   document.querySelectorAll('.page').forEach(p => {
     p.className = 'page';
     p.style.cssText = 'display:none';
   });
-  // Show only the target page
   const page = document.getElementById(id);
   page.classList.add('active');
   const isFlex = (id === 'confirm-page' || id === 'manager-login');
@@ -449,26 +431,20 @@ function renderStepBar(containerId, step) {
   el.className = 'stepbar';
   el.innerHTML = steps.map((s,i) => {
     const state = i+1 < step ? 'done' : i+1 === step ? 'active' : 'inactive';
-    const line = i < 2 ? `<div class="step-line ${i+1 < step ? 'done' : 'inactive'}"></div>` : '';
-    return `<div style="display:flex;align-items:center;gap:8px">
-      <div class="step-pill ${state}">
-        <span class="step-dot ${state}">${i+1}</span>${s}
-      </div>${line}
-    </div>`;
+    const line = i < 2 ? '<div class="step-line '+(i+1 < step ? 'done' : 'inactive')+'"></div>' : '';
+    return '<div style="display:flex;align-items:center;gap:8px"><div class="step-pill '+state+'"><span class="step-dot '+state+'">'+(i+1)+'</span>'+s+'</div>'+line+'</div>';
   }).join('');
 }
 
 // ── WELCOME ───────────────────────────────────────────────────────────────────
 function checkName() {
-  const val = document.getElementById('name-input').value.trim();
-  document.getElementById('start-btn').disabled = !val;
+  document.getElementById('start-btn').disabled = !document.getElementById('name-input').value.trim();
 }
 
 function startApp() {
   userName = document.getElementById('name-input').value.trim();
   if (!userName) return;
-  selectedIds = [];
-  ratings = {};
+  selectedIds = []; ratings = {}; customProject = null;
   document.getElementById('nav-name-select').textContent = userName;
   renderStepBar('stepbar-select', 1);
   renderProjectGrid();
@@ -478,23 +454,57 @@ function startApp() {
 // ── SELECTION ─────────────────────────────────────────────────────────────────
 function renderProjectGrid() {
   const grid = document.getElementById('projects-grid');
-  grid.innerHTML = PROJECTS.map(p => `
-    <button class="project-card ${selectedIds.includes(p.id)?'selected':''}" id="card-${p.id}" onclick="toggleProject('${p.id}')">
-      <span class="project-title">${p.title}</span>
-      <div class="project-check ${selectedIds.includes(p.id)?'checked':''}" id="check-${p.id}">${selectedIds.includes(p.id)?'✓':''}</div>
-    </button>
-  `).join('');
+  const customSel = selectedIds.includes('custom-01');
+
+  grid.innerHTML = PROJECTS.map(p => {
+    const sel = selectedIds.includes(p.id);
+    return '<button class="project-card '+(sel?'selected':'')+'" id="card-'+p.id+'" onclick="toggleProject(\''+p.id+'\')">'+
+      '<span class="project-title">'+p.title+'</span>'+
+      '<div class="project-check '+(sel?'checked':'')+'" id="check-'+p.id+'">'+(sel?'✓':'')+'</div>'+
+    '</button>';
+  }).join('') +
+
+  // ── Suggest your own card ──
+  '<div class="project-card custom-card">'+
+    '<div style="display:flex;align-items:center;gap:8px;width:100%">'+
+      '<span style="font-size:18px">💡</span>'+
+      '<span style="font-size:13px;font-weight:600;color:#64748b">Suggest your own key action</span>'+
+    '</div>'+
+    '<div style="display:flex;gap:8px;width:100%">'+
+      '<input id="custom-input" class="custom-input" type="text" placeholder="Type your idea here..." '+
+        'value="'+(customProject ? customProject.title : '')+'" onclick="event.stopPropagation()"/>'+
+      '<button class="custom-add-btn" onclick="event.stopPropagation();addCustomProject()">+ Add</button>'+
+    '</div>'+
+    (customProject ?
+      '<div onclick="event.stopPropagation();toggleProject(\'custom-01\')" style="display:flex;align-items:center;gap:8px;width:100%;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:8px 12px;cursor:pointer;">'+
+        '<span style="font-size:13px;font-weight:600;color:#0f172a;flex:1">'+customProject.title+'</span>'+
+        '<div class="project-check '+(customSel?'checked':'')+'">'+(customSel?'✓':'')+'</div>'+
+      '</div>'
+    : '')+
+  '</div>';
+
   updateSelectionUI();
 }
 
+function addCustomProject() {
+  const input = document.getElementById('custom-input');
+  const val = input ? input.value.trim() : '';
+  if (!val) return;
+  customProject = {id:'custom-01', title:val};
+  if (!selectedIds.includes('custom-01')) selectedIds.push('custom-01');
+  renderProjectGrid();
+}
+
 function toggleProject(id) {
+  if (id === 'custom-01' && !customProject) return;
   if (selectedIds.includes(id)) {
     selectedIds = selectedIds.filter(x => x !== id);
   } else {
     selectedIds.push(id);
   }
-  const card = document.getElementById(`card-${id}`);
-  const check = document.getElementById(`check-${id}`);
+  if (id === 'custom-01') { renderProjectGrid(); return; }
+  const card = document.getElementById('card-'+id);
+  const check = document.getElementById('check-'+id);
   const sel = selectedIds.includes(id);
   card.classList.toggle('selected', sel);
   check.classList.toggle('checked', sel);
@@ -505,17 +515,13 @@ function toggleProject(id) {
 function updateSelectionUI() {
   const count = selectedIds.length;
   document.getElementById('selected-count').textContent = count;
-  document.getElementById('selected-label').textContent = ` project${count!==1?'s':''} selected`;
+  document.getElementById('selected-label').textContent = ' project'+(count!==1?'s':'')+' selected';
   document.getElementById('continue-btn').disabled = count === 0;
   document.getElementById('select-all-btn').textContent = selectedIds.length === PROJECTS.length ? 'Clear All' : 'Select All';
 }
 
 function toggleSelectAll() {
-  if (selectedIds.length === PROJECTS.length) {
-    selectedIds = [];
-  } else {
-    selectedIds = PROJECTS.map(p => p.id);
-  }
+  selectedIds = selectedIds.length === PROJECTS.length ? [] : PROJECTS.map(p => p.id);
   renderProjectGrid();
 }
 
@@ -530,77 +536,65 @@ function goToRank() {
 const ratingLabels = ["","Low","Below Avg","Average","Above Avg","High Interest"];
 
 function renderRatingCards() {
-  const selected = PROJECTS.filter(p => selectedIds.includes(p.id));
-  const container = document.getElementById('rating-cards');
-  container.innerHTML = selected.map(p => `
-    <div class="rating-card ${ratings[p.id]?'rated':''}" id="rcard-${p.id}">
-      <div class="rating-card-inner">
-
-        <div class="rating-content">
-          <div class="rating-row">
-            <h3 class="rating-title">${p.title}</h3>
-            <div class="rating-stars">
-              <div class="stars" id="stars-${p.id}">
-                ${[1,2,3,4,5].map(n => `<button class="star ${n<=(ratings[p.id]||0)?'lit':''}" id="star-${p.id}-${n}"
-                  onclick="setRating('${p.id}',${n})"
-                  onmouseover="hoverStars('${p.id}',${n})"
-                  onmouseout="unhoverStars('${p.id}')">★</button>`).join('')}
-              </div>
-              <span class="rating-label ${ratings[p.id]?'':'empty'}" id="rlabel-${p.id}">${ratings[p.id]?ratingLabels[ratings[p.id]]:'Not yet rated'}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `).join('');
+  const selected = getAllProjects().filter(p => selectedIds.includes(p.id));
+  document.getElementById('rating-cards').innerHTML = selected.map(p =>
+    '<div class="rating-card '+(ratings[p.id]?'rated':'')+'" id="rcard-'+p.id+'">'+
+      '<div class="rating-card-inner"><div class="rating-content"><div class="rating-row">'+
+        '<h3 class="rating-title">'+p.title+'</h3>'+
+        '<div class="rating-stars">'+
+          '<div class="stars">'+
+            [1,2,3,4,5].map(n =>
+              '<button class="star '+(n<=(ratings[p.id]||0)?'lit':'')+'" id="star-'+p.id+'-'+n+'"'+
+              ' onclick="setRating(\''+p.id+'\','+n+')"'+
+              ' onmouseover="hoverStars(\''+p.id+'\','+n+')"'+
+              ' onmouseout="unhoverStars(\''+p.id+'\')">★</button>'
+            ).join('')+
+          '</div>'+
+          '<span class="rating-label '+(ratings[p.id]?'':'empty')+'" id="rlabel-'+p.id+'">'+(ratings[p.id]?ratingLabels[ratings[p.id]]:'Not yet rated')+'</span>'+
+        '</div>'+
+      '</div></div></div>'+
+    '</div>'
+  ).join('');
   updateRatingProgress();
 }
 
 function hoverStars(pid, n) {
-  for (let i=1;i<=5;i++) {
-    document.getElementById(`star-${pid}-${i}`).classList.toggle('lit', i<=n);
-  }
+  for (let i=1;i<=5;i++) document.getElementById('star-'+pid+'-'+i).classList.toggle('lit', i<=n);
 }
 
 function unhoverStars(pid) {
   const val = ratings[pid] || 0;
-  for (let i=1;i<=5;i++) {
-    document.getElementById(`star-${pid}-${i}`).classList.toggle('lit', i<=val);
-  }
+  for (let i=1;i<=5;i++) document.getElementById('star-'+pid+'-'+i).classList.toggle('lit', i<=val);
 }
 
 function setRating(pid, val) {
   ratings[pid] = val;
-  document.getElementById(`rcard-${pid}`).classList.add('rated');
-  document.getElementById(`rlabel-${pid}`).textContent = ratingLabels[val];
-  document.getElementById(`rlabel-${pid}`).classList.remove('empty');
-  for (let i=1;i<=5;i++) {
-    document.getElementById(`star-${pid}-${i}`).classList.toggle('lit', i<=val);
-  }
+  document.getElementById('rcard-'+pid).classList.add('rated');
+  document.getElementById('rlabel-'+pid).textContent = ratingLabels[val];
+  document.getElementById('rlabel-'+pid).classList.remove('empty');
+  for (let i=1;i<=5;i++) document.getElementById('star-'+pid+'-'+i).classList.toggle('lit', i<=val);
   updateRatingProgress();
 }
 
 function updateRatingProgress() {
-  const selected = PROJECTS.filter(p => selectedIds.includes(p.id));
+  const selected = getAllProjects().filter(p => selectedIds.includes(p.id));
   const ratedCount = selected.filter(p => ratings[p.id]).length;
   const total = selected.length;
-  const pct = total ? (ratedCount/total)*100 : 0;
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-text').textContent = `${ratedCount} of ${total} rated`;
+  document.getElementById('progress-fill').style.width = (total ? (ratedCount/total)*100 : 0)+'%';
+  document.getElementById('progress-text').textContent = ratedCount+' of '+total+' rated';
   const allDone = ratedCount === total;
   document.getElementById('submit-btn').disabled = !allDone;
-  document.getElementById('rank-hint').textContent = allDone ? '' : `Please rate all ${total} selected projects before submitting.`;
+  document.getElementById('rank-hint').textContent = allDone ? '' : 'Please rate all '+total+' selected projects before submitting.';
 }
 
 function goToSelect() { showPage('select-page'); }
 
 async function submitRatings() {
   const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.textContent = 'Saving...';
+  btn.disabled = true; btn.textContent = 'Saving...';
   const ratingData = selectedIds.map(id => ({
     projectId: id,
-    title: PROJECTS.find(p=>p.id===id).title,
+    title: getAllProjects().find(p=>p.id===id).title,
     rating: ratings[id]
   }));
   saveSubmission(userName, ratingData).catch(e => console.warn('Save error:', e));
@@ -609,20 +603,14 @@ async function submitRatings() {
 
 // ── CONFIRM ───────────────────────────────────────────────────────────────────
 function showConfirm(ratingData) {
-  document.getElementById('confirm-title').textContent = `You're all set, ${userName.split(' ')[0]}!`;
+  document.getElementById('confirm-title').textContent = "You're all set, "+userName.split(' ')[0]+"!";
   renderStepBar('stepbar-confirm', 3);
-  const items = document.getElementById('confirm-items');
   const sorted = [...ratingData].sort((a,b) => b.rating - a.rating);
-  items.innerHTML = sorted.map(r => {
-    const proj = PROJECTS.find(p=>p.id===r.projectId);
-    const stars = [1,2,3,4,5].map(n=>`<span class="confirm-star" style="color:${n<=r.rating?'#fbbf24':'#e2e8f0'}">★</span>`).join('');
-    return `<div class="confirm-item">
-      <div class="confirm-item-left">
-
-        <span class="confirm-item-title">${r.title}</span>
-      </div>
-      <div class="confirm-stars">${stars}</div>
-    </div>`;
+  document.getElementById('confirm-items').innerHTML = sorted.map(r => {
+    const stars = [1,2,3,4,5].map(n=>'<span class="confirm-star" style="color:'+(n<=r.rating?'#fbbf24':'#e2e8f0')+'">★</span>').join('');
+    return '<div class="confirm-item">'+
+      '<div class="confirm-item-left"><span class="confirm-item-title">'+r.title+'</span></div>'+
+      '<div class="confirm-stars">'+stars+'</div></div>';
   }).join('');
   showPage('confirm-page');
 }
@@ -647,200 +635,163 @@ function doLogin() {
 async function loadDashboard() {
   document.getElementById('dash-content').innerHTML = '<div class="loading-state">Loading results...</div>';
   document.getElementById('stats-grid').innerHTML = '';
-  try {
-    allSubs = await loadAllSubmissions();
-    renderDashboard();
-  } catch(e) {
-    document.getElementById('dash-content').innerHTML = '<div class="loading-state">Error loading data. Please try again.</div>';
-  }
+  try { allSubs = await loadAllSubmissions(); renderDashboard(); }
+  catch(e) { document.getElementById('dash-content').innerHTML = '<div class="loading-state">Error loading data.</div>'; }
 }
 
 function renderDashboard() {
-  const projectStats = PROJECTS.map(p => {
+  // Include any custom suggestions found in submissions
+  const allTitles = new Set();
+  allSubs.forEach(s => s.ratings.forEach(r => allTitles.add(r.title)));
+  const dashProjects = [...PROJECTS];
+  allTitles.forEach(title => {
+    if (!dashProjects.find(p => p.title === title))
+      dashProjects.push({id:'custom-'+title, title, custom:true});
+  });
+
+  const projectStats = dashProjects.map(p => {
     const selections = allSubs.filter(s => s.ratings.find(r => r.projectId===p.id||r.title===p.title));
     const rated = selections.map(s => s.ratings.find(r=>r.projectId===p.id||r.title===p.title).rating);
     const avg = rated.length ? (rated.reduce((a,b)=>a+b,0)/rated.length).toFixed(1) : null;
     const dist = [1,2,3,4,5].map(n => rated.filter(r=>r===n).length);
-    const employees = selections.map(s => s.employeeName);
-    return {...p, selections:selections.length, avg, dist, employees};
-  });
+    return {...p, selections:selections.length, avg, dist, employees:selections.map(s=>s.employeeName)};
+  }).filter(p => p.selections > 0 || !p.custom);
 
   const topProject = [...projectStats].sort((a,b)=>b.selections-a.selections)[0];
   const topRated = [...projectStats].filter(p=>p.avg).sort((a,b)=>parseFloat(b.avg)-parseFloat(a.avg))[0];
 
-  // Stats cards
   document.getElementById('stats-grid').innerHTML = [
     {emoji:"👥",label:"Total Submissions",value:allSubs.length,sub:"team members responded"},
-    {emoji:"🏆",label:"Most Selected",value:topProject?.selections?`${topProject.selections}x`:"—",sub:topProject?.title||"No data yet"},
-    {emoji:"⭐",label:"Highest Rated",value:topRated?`${topRated.avg} ★`:"—",sub:topRated?.title||"No data yet"},
-  ].map(c=>`
-    <div class="stat-card">
-      <div class="stat-card-top"><div class="stat-icon">${c.emoji}</div><span class="stat-label">${c.label}</span></div>
-      <div class="stat-value">${c.value}</div>
-      <div class="stat-sub">${c.sub}</div>
-    </div>
-  `).join('');
+    {emoji:"🏆",label:"Most Selected",value:topProject?.selections?topProject.selections+'x':"—",sub:topProject?.title||"No data yet"},
+    {emoji:"⭐",label:"Highest Rated",value:topRated?topRated.avg+' ★':"—",sub:topRated?.title||"No data yet"},
+  ].map(c =>
+    '<div class="stat-card"><div class="stat-card-top"><div class="stat-icon">'+c.emoji+'</div><span class="stat-label">'+c.label+'</span></div>'+
+    '<div class="stat-value">'+c.value+'</div><div class="stat-sub">'+c.sub+'</div></div>'
+  ).join('');
 
   if (allSubs.length === 0) {
-    document.getElementById('dash-content').innerHTML = `
-      <div class="empty-state">
-        <div class="empty-emoji">📭</div>
-        <h3 class="empty-title">No submissions yet</h3>
-        <p class="empty-desc">Share the tool link with your team to start collecting responses.</p>
-      </div>`;
+    document.getElementById('dash-content').innerHTML =
+      '<div class="empty-state"><div class="empty-emoji">📭</div><h3 class="empty-title">No submissions yet</h3><p class="empty-desc">Share the tool link with your team to start collecting responses.</p></div>';
     return;
   }
 
-  // Sort projects
   const sorted = [...projectStats].sort((a,b) => currentSort==='selections' ? b.selections-a.selections : parseFloat(b.avg||0)-parseFloat(a.avg||0));
 
-  document.getElementById('dash-content').innerHTML = `
-    <div class="section-card" style="margin-bottom:24px">
-      <div class="section-header">
-        <span class="section-title">Project Results</span>
-        <div class="sort-btns">
-          <button class="sort-btn ${currentSort==='selections'?'active':''}" onclick="setSort('selections')">By Selections</button>
-          <button class="sort-btn ${currentSort==='rating'?'active':''}" onclick="setSort('rating')">By Avg Rating</button>
-        </div>
-      </div>
-      ${sorted.map((p,idx)=>`
-        <div class="project-row">
-          <div class="project-rank">${idx+1}</div>
-
-          <div class="project-row-info">
-            <div class="project-row-title">${p.title}</div>
-            <div class="project-row-employees">${p.employees.join(', ')||'No selections yet'}</div>
-            ${p.dist.some(n=>n>0)?`<div class="project-row-dist">${p.dist.map((c,i)=>`<span class="dist-item">★${i+1}: ${c}</span>`).join('')}</div>`:''}
-          </div>
-          <div class="project-row-stats">
-            <div class="project-stat"><div class="project-stat-val">${p.selections}</div><div class="project-stat-label">selections</div></div>
-            <div class="project-stat"><div class="project-stat-val amber">${p.avg||'—'}</div><div class="project-stat-label">avg rating</div></div>
-          </div>
-        </div>
-      `).join('')}
-    </div>
-
-    <div class="section-card">
-      <div class="section-header">
-        <span class="section-title">All Submissions <span style="color:#94a3b8;font-weight:400;font-size:13px">— click a person to see full details</span></span>
-      </div>
-      ${allSubs.map((s,i)=>{
+  document.getElementById('dash-content').innerHTML =
+    '<div class="section-card" style="margin-bottom:24px">'+
+      '<div class="section-header"><span class="section-title">Project Results</span>'+
+        '<div class="sort-btns">'+
+          '<button class="sort-btn '+(currentSort==='selections'?'active':'')+'" onclick="setSort(\'selections\')">By Selections</button>'+
+          '<button class="sort-btn '+(currentSort==='rating'?'active':'')+'" onclick="setSort(\'rating\')">By Avg Rating</button>'+
+        '</div></div>'+
+      sorted.map((p,idx) =>
+        '<div class="project-row">'+
+          '<div class="project-rank">'+(idx+1)+'</div>'+
+          '<div class="project-row-info">'+
+            '<div class="project-row-title">'+p.title+(p.custom?' <span style="font-size:11px;background:#fef3c7;color:#d97706;padding:2px 6px;border-radius:4px;font-weight:600">suggested</span>':'')+'</div>'+
+            '<div class="project-row-employees">'+(p.employees.join(', ')||'No selections yet')+'</div>'+
+            (p.dist.some(n=>n>0)?'<div class="project-row-dist">'+p.dist.map((c,i)=>'<span class="dist-item">★'+(i+1)+': '+c+'</span>').join('')+'</div>':'')+
+          '</div>'+
+          '<div class="project-row-stats">'+
+            '<div class="project-stat"><div class="project-stat-val">'+p.selections+'</div><div class="project-stat-label">selections</div></div>'+
+            '<div class="project-stat"><div class="project-stat-val amber">'+(p.avg||'—')+'</div><div class="project-stat-label">avg rating</div></div>'+
+          '</div>'+
+        '</div>'
+      ).join('')+
+    '</div>'+
+    '<div class="section-card">'+
+      '<div class="section-header"><span class="section-title">All Submissions <span style="color:#94a3b8;font-weight:400;font-size:13px">— click a person to see full details</span></span></div>'+
+      allSubs.map((s,i) => {
         const initials = s.employeeName.split(' ').map(n=>n[0]||'').join('').slice(0,2).toUpperCase();
         const sortedRatings = [...s.ratings].sort((a,b)=>b.rating-a.rating);
         const avg = s.ratings.length ? (s.ratings.reduce((a,b)=>a+b.rating,0)/s.ratings.length).toFixed(1) : '—';
-        const subId = s.id || i.toString();
-        return `
-        <div class="sub-row" id="subrow-${i}">
-          <div class="sub-row-header" onclick="toggleSub(${i})" id="subheader-${i}">
-            <div class="sub-row-left">
-              <div class="sub-avatar">${initials}</div>
-              <div>
-                <div class="sub-name">${s.employeeName}</div>
-                <div class="sub-meta">${new Date(s.submittedAt).toLocaleString()} · ${s.ratings.length} project${s.ratings.length!==1?'s':''} rated</div>
-              </div>
-            </div>
-            <div class="sub-row-right">
-              <button onclick="event.stopPropagation();confirmDelete('${subId}',${i},'${s.employeeName.replace(/'/g,String.fromCharCode(39))}');" style="background:#ef4444;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;margin-right:8px;">🗑 Delete</button>
-              <span class="sub-arrow" id="arrow-${i}">›</span>
-            </div>
-          </div>
-          <div class="sub-detail" id="subdetail-${i}">
-            <div class="sub-detail-grid">
-              ${sortedRatings.map(r=>{
-                const proj = PROJECTS.find(p=>p.id===r.projectId||p.title===r.title);
-                const stars = [1,2,3,4,5].map(n=>`<span class="sub-detail-star" style="color:${n<=r.rating?'#fbbf24':'#e2e8f0'}">★</span>`).join('');
-                return `<div class="sub-detail-card">
-
-                  <div class="sub-detail-info">
-                    <div class="sub-detail-title">${r.title}</div>
-                    <div class="sub-detail-stars">${stars}<span class="sub-detail-rating-label">${ratingLabels[r.rating]}</span></div>
-                  </div>
-                </div>`;
-              }).join('')}
-            </div>
-            <div class="sub-avg">
-              <span class="sub-avg-label">Average rating across all selected projects</span>
-              <span class="sub-avg-val">${avg} ★</span>
-            </div>
-          </div>
-        </div>`;
-      }).join('')}
-    </div>`;
+        return '<div class="sub-row">'+
+          '<div class="sub-row-header" onclick="toggleSub('+i+')" id="subheader-'+i+'">'+
+            '<div class="sub-row-left">'+
+              '<div class="sub-avatar">'+initials+'</div>'+
+              '<div><div class="sub-name">'+s.employeeName+'</div>'+
+              '<div class="sub-meta">'+new Date(s.submittedAt).toLocaleString()+' · '+s.ratings.length+' project'+(s.ratings.length!==1?'s':'')+' rated</div></div>'+
+            '</div>'+
+            '<div class="sub-row-right">'+
+              '<button onclick="event.stopPropagation();confirmDelete(\''+i+'\','+i+',\''+s.employeeName.replace(/'/g,'&#39;')+'\');" style="background:#ef4444;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;margin-right:8px;">🗑 Delete</button>'+
+              '<span class="sub-arrow" id="arrow-'+i+'">›</span>'+
+            '</div>'+
+          '</div>'+
+          '<div class="sub-detail" id="subdetail-'+i+'">'+
+            '<div class="sub-detail-grid">'+
+              sortedRatings.map(r => {
+                const stars = [1,2,3,4,5].map(n=>'<span class="sub-detail-star" style="color:'+(n<=r.rating?'#fbbf24':'#e2e8f0')+'">★</span>').join('');
+                return '<div class="sub-detail-card"><div class="sub-detail-info">'+
+                  '<div class="sub-detail-title">'+r.title+'</div>'+
+                  '<div class="sub-detail-stars">'+stars+'<span class="sub-detail-rating-label">'+ratingLabels[r.rating]+'</span></div>'+
+                '</div></div>';
+              }).join('')+
+            '</div>'+
+            '<div class="sub-avg"><span class="sub-avg-label">Average rating across all selected projects</span><span class="sub-avg-val">'+avg+' ★</span></div>'+
+          '</div>'+
+        '</div>';
+      }).join('')+
+    '</div>';
 }
 
 function toggleSub(i) {
-  const detail = document.getElementById(`subdetail-${i}`);
-  const arrow = document.getElementById(`arrow-${i}`);
-  const header = document.getElementById(`subheader-${i}`);
+  const detail = document.getElementById('subdetail-'+i);
+  const arrow = document.getElementById('arrow-'+i);
+  const header = document.getElementById('subheader-'+i);
   const isOpen = detail.classList.contains('open');
-  // Close all
   document.querySelectorAll('.sub-detail').forEach(d=>d.classList.remove('open'));
   document.querySelectorAll('.sub-arrow').forEach(a=>a.classList.remove('open'));
   document.querySelectorAll('.sub-row-header').forEach(h=>h.classList.remove('open'));
-  if (!isOpen) {
-    detail.classList.add('open');
-    arrow.classList.add('open');
-    header.classList.add('open');
-  }
+  if (!isOpen) { detail.classList.add('open'); arrow.classList.add('open'); header.classList.add('open'); }
 }
 
-function setSort(val) {
-  currentSort = val;
-  renderDashboard();
-}
+function setSort(val) { currentSort = val; renderDashboard(); }
 
 function confirmDelete(subId, idx, name) {
-  if (!confirm('Delete submission from "' + name + '"? This cannot be undone.')) return;
-  doDelete(subId, idx);
+  if (!confirm('Delete submission from "'+name+'"? This cannot be undone.')) return;
+  doDelete(idx);
 }
 
-async function doDelete(subId, idx) {
+async function doDelete(idx) {
   try {
     const binId = await getOrCreateBin();
     const getRes = await fetch("https://api.jsonbin.io/v3/b/"+binId+"/latest",{headers:{"X-Master-Key":JSONBIN_KEY}});
     const current = await getRes.json();
-    const subs = current.record.submissions || [];
-    // Remove by index (most reliable)
-    const filtered = subs.filter((_,i) => i !== idx);
+    const filtered = (current.record.submissions||[]).filter((_,i)=>i!==idx);
     await fetch("https://api.jsonbin.io/v3/b/"+binId,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY},body:JSON.stringify({submissions:filtered})});
     allSubs = filtered;
     renderDashboard();
-  } catch(e) {
-    alert("Error deleting submission. Please try again.");
-  }
+  } catch(e) { alert("Error deleting submission. Please try again."); }
 }
 
-// ── EXPORT CSV ────────────────────────────────────────────────────────────────
 function exportCSV() {
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-US",{year:"numeric",month:"2-digit",day:"2-digit"}).replace(/\//g,"-");
   const rows = [
-    ["2026 GOALS — TEAM INTEREST SURVEY RESULTS"],
-    [`Exported: ${now.toLocaleString()}`],
-    [`Total Submissions: ${allSubs.length}`],
+    ["2026 GOALS — PRODUCT ENGINEERING TEAM SURVEY"],
+    ["Exported: "+now.toLocaleString()],
+    ["Total Submissions: "+allSubs.length],
     [],
-    ["Employee Name","Submitted At",...PROJECTS.map(p=>p.title)]
+    ["Employee Name","Submitted At",...PROJECTS.map(p=>p.title),"Custom Suggestion"]
   ];
   allSubs.forEach(s => {
-    const row = [s.employeeName, new Date(s.submittedAt).toLocaleString(), ...PROJECTS.map(p=>{
-      const r = s.ratings.find(x=>x.projectId===p.id||x.title===p.title);
-      return r ? r.rating : "—";
-    })];
-    rows.push(row);
+    const customR = s.ratings.find(r=>!PROJECTS.find(p=>p.id===r.projectId||p.title===r.title));
+    rows.push([s.employeeName, new Date(s.submittedAt).toLocaleString(),
+      ...PROJECTS.map(p=>{ const r=s.ratings.find(x=>x.projectId===p.id||x.title===p.title); return r?r.rating:"—"; }),
+      customR ? customR.title+" ("+customR.rating+"★)" : ""
+    ]);
   });
-  // Summary
   rows.push([],[],["PROJECT SUMMARY"],["Project","Total Selections","Avg Rating","1★","2★","3★","4★","5★","Interested Employees"]);
   PROJECTS.forEach(p => {
-    const sels = allSubs.filter(s=>s.ratings.find(r=>r.projectId===p.id||r.title===p.title));
-    const rated = sels.map(s=>s.ratings.find(r=>r.projectId===p.id||r.title===p.title).rating);
-    const avg = rated.length?(rated.reduce((a,b)=>a+b,0)/rated.length).toFixed(1):"—";
-    const dist = [1,2,3,4,5].map(n=>rated.filter(r=>r===n).length);
-    rows.push([p.title,sels.length,avg,...dist,sels.map(s=>s.employeeName).join(", ")]);
+    const sels=allSubs.filter(s=>s.ratings.find(r=>r.projectId===p.id||r.title===p.title));
+    const rated=sels.map(s=>s.ratings.find(r=>r.projectId===p.id||r.title===p.title).rating);
+    const avg=rated.length?(rated.reduce((a,b)=>a+b,0)/rated.length).toFixed(1):"—";
+    rows.push([p.title,sels.length,avg,...[1,2,3,4,5].map(n=>rated.filter(r=>r===n).length),sels.map(s=>s.employeeName).join(", ")]);
   });
-  const csv = rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8;"}));
-  a.download = `2026-goals-results-${dateStr}.csv`;
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\n");
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8;"}));
+  a.download="2026-goals-results-"+dateStr+".csv";
   a.click();
 }
 </script>
