@@ -738,33 +738,39 @@ function buildScoreMatrix(allSubs, allProjects) {
     allSubs.some(s => lookup[s.employeeName][p.title])
   );
 
+  // Projects on Y axis, employees on X axis
   let html = '<div class="section-card" style="margin-bottom:24px">' +
     '<div class="section-header"><span class="section-title">Score Matrix</span>' +
-    '<span style="color:#94a3b8;font-size:13px;font-weight:400">Each employee&#39;s rating per project</span></div>' +
+    '<span style="color:#94a3b8;font-size:13px;font-weight:400">Rating per project &amp; employee</span></div>' +
     '<div class="matrix-wrap">' +
     '<table class="matrix-table">' +
     '<thead><tr>' +
-    '<th class="matrix-emp-header">Employee</th>' +
-    ratedProjects.map(p =>
-      '<th class="matrix-proj-header"><span class="matrix-proj-label" title="'+p.title+'">'+p.title+'</span></th>'
-    ).join('') +
+    '<th class="matrix-emp-header">Project</th>' +
+    allSubs.map((s, i) => {
+      const color = empColors[s.employeeName];
+      const initials = s.employeeName.split(' ').map(n=>n[0]||'').join('').slice(0,2).toUpperCase();
+      return '<th class="matrix-proj-header" style="min-width:64px">' +
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px">' +
+          '<div style="width:32px;height:32px;border-radius:50%;background:'+color.bg+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800">'+initials+'</div>' +
+          '<span style="font-size:11px;font-weight:600;color:#334155;white-space:nowrap;max-width:70px;overflow:hidden;text-overflow:ellipsis;display:block;text-align:center">'+s.employeeName.split(' ')[0]+'</span>' +
+        '</div>' +
+      '</th>';
+    }).join('') +
     '</tr></thead>' +
     '<tbody>' +
-    allSubs.map(s => {
-      const color = empColors[s.employeeName];
+    ratedProjects.map((p, pi) => {
+      const rowBg = pi % 2 === 0 ? '#ffffff' : '#fafafa';
       return '<tr>' +
-        '<td class="matrix-name-cell" style="background:'+color.light+'">' +
-          '<div class="matrix-emp-name">' +
-            '<span class="matrix-emp-dot" style="background:'+color.bg+'"></span>' +
-            s.employeeName +
-          '</div>' +
+        '<td class="matrix-name-cell" style="background:'+rowBg+'">' +
+          '<div style="font-size:13px;font-weight:600;color:#0f172a;white-space:nowrap">'+p.title+'</div>' +
         '</td>' +
-        ratedProjects.map(p => {
+        allSubs.map(s => {
+          const color = empColors[s.employeeName];
           const rating = lookup[s.employeeName][p.title];
           const sc = rating ? scoreColor(rating) : null;
-          return '<td class="matrix-score-cell" style="background:'+color.light+'">' +
+          return '<td class="matrix-score-cell" style="background:'+rowBg+'">' +
             (rating
-              ? '<div class="score-chip" style="background:'+sc.bg+';color:'+sc.text+'" title="'+p.title+': '+rating+'★">'+rating+'</div>'
+              ? '<div class="score-chip" style="background:'+sc.bg+';color:'+sc.text+';border:2px solid '+color.bg+'20" title="'+s.employeeName+': '+rating+'★">'+rating+'</div>'
               : '<div class="score-chip empty">—</div>'
             ) +
           '</td>';
@@ -772,9 +778,17 @@ function buildScoreMatrix(allSubs, allProjects) {
       '</tr>';
     }).join('') +
     '</tbody></table></div>' +
-    // Legend
+    // Legend: employees + score scale
     '<div class="matrix-legend">' +
-    '<span class="matrix-legend-title">Score:</span>' +
+    '<span class="matrix-legend-title">Team:</span>' +
+    allSubs.map(s => {
+      const color = empColors[s.employeeName];
+      return '<div class="matrix-legend-item">' +
+        '<span class="matrix-emp-dot" style="background:'+color.bg+';width:10px;height:10px;border-radius:50%;display:inline-block"></span>' +
+        s.employeeName +
+      '</div>';
+    }).join('') +
+    '<span style="margin-left:12px;border-left:1px solid #e2e8f0;padding-left:12px" class="matrix-legend-title">Score:</span>' +
     [1,2,3,4,5].map(n => {
       const sc = scoreColor(n);
       return '<div class="matrix-legend-item">' +
