@@ -190,6 +190,24 @@ table{border-collapse:collapse;width:100%}
 .empty-title{font-size:18px;font-weight:700;color:#475569;margin-bottom:8px}
 .empty-desc{color:#94a3b8;font-size:14px}
 
+/* Heat map score matrix */
+.matrix-wrap{overflow-x:auto;padding-bottom:8px}
+.matrix-table{border-collapse:separate;border-spacing:0;min-width:100%}
+.matrix-table th,.matrix-table td{padding:0}
+.matrix-emp-header{padding:12px 16px 12px 20px;text-align:left;position:sticky;left:0;background:#fff;z-index:2;min-width:160px;border-right:2px solid #f1f5f9;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em}
+.matrix-proj-header{padding:10px 6px 4px;text-align:center;width:64px;max-width:64px;vertical-align:bottom;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em}
+.matrix-proj-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:600;color:#334155;line-height:1.2;max-height:110px;overflow:hidden;display:block;padding:4px 2px;white-space:nowrap;text-overflow:ellipsis}
+.matrix-name-cell{padding:8px 16px 8px 20px;position:sticky;left:0;z-index:1;border-right:2px solid #f1f5f9;border-top:1px solid #f8fafc;background:#fff}
+.matrix-emp-name{font-size:13px;font-weight:600;color:#0f172a;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.matrix-emp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.matrix-score-cell{text-align:center;border-top:1px solid #f8fafc;width:64px;max-width:64px}
+.score-chip{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:5px auto;font-size:15px;font-weight:800;transition:transform 0.15s,box-shadow 0.15s;cursor:default}
+.score-chip:hover{transform:scale(1.2);box-shadow:0 4px 16px rgba(0,0,0,0.15);z-index:5;position:relative}
+.score-chip.empty{background:#f8fafc;color:#e2e8f0;font-size:11px;font-weight:400}
+.matrix-legend{display:flex;align-items:center;gap:16px;padding:12px 20px;border-top:1px solid #f1f5f9;flex-wrap:wrap}
+.matrix-legend-title{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.06em;margin-right:4px}
+.matrix-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#475569}
+
 .sub-row{border-top:1px solid #f1f5f9}
 .sub-row-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
 .sub-row-header:hover{background:#fffbeb}
@@ -670,6 +688,106 @@ async function loadDashboard() {
   catch(e) { document.getElementById('dash-content').innerHTML = '<div class="loading-state">Error loading data.</div>'; }
 }
 
+// Employee color palette — vivid, distinct
+const EMP_COLORS = [
+  {bg:'#6366f1',light:'#eef2ff',text:'#fff'},
+  {bg:'#f59e0b',light:'#fffbeb',text:'#fff'},
+  {bg:'#10b981',light:'#ecfdf5',text:'#fff'},
+  {bg:'#ef4444',light:'#fef2f2',text:'#fff'},
+  {bg:'#8b5cf6',light:'#f5f3ff',text:'#fff'},
+  {bg:'#06b6d4',light:'#ecfeff',text:'#fff'},
+  {bg:'#f97316',light:'#fff7ed',text:'#fff'},
+  {bg:'#ec4899',light:'#fdf2f8',text:'#fff'},
+  {bg:'#14b8a6',light:'#f0fdfa',text:'#fff'},
+  {bg:'#a855f7',light:'#faf5ff',text:'#fff'},
+  {bg:'#84cc16',light:'#f7fee7',text:'#fff'},
+  {bg:'#0ea5e9',light:'#f0f9ff',text:'#fff'},
+];
+
+// Score chip color based on rating value (1-5)
+function scoreColor(rating) {
+  const palette = [
+    null,
+    {bg:'#fef2f2',text:'#ef4444'}, // 1 - red
+    {bg:'#fff7ed',text:'#f97316'}, // 2 - orange
+    {bg:'#fefce8',text:'#ca8a04'}, // 3 - yellow
+    {bg:'#f0fdf4',text:'#16a34a'}, // 4 - green
+    {bg:'#dcfce7',text:'#15803d'}, // 5 - deep green
+  ];
+  return palette[rating] || {bg:'#f8fafc',text:'#94a3b8'};
+}
+
+function buildScoreMatrix(allSubs, allProjects) {
+  if (!allSubs.length) return '';
+
+  // Assign a color to each employee
+  const empColors = {};
+  allSubs.forEach((s, i) => {
+    empColors[s.employeeName] = EMP_COLORS[i % EMP_COLORS.length];
+  });
+
+  // Build lookup: employeeName -> projectTitle -> rating
+  const lookup = {};
+  allSubs.forEach(s => {
+    lookup[s.employeeName] = {};
+    s.ratings.forEach(r => { lookup[s.employeeName][r.title] = r.rating; });
+  });
+
+  // Only show projects that at least one person rated
+  const ratedProjects = allProjects.filter(p =>
+    allSubs.some(s => lookup[s.employeeName][p.title])
+  );
+
+  let html = '<div class="section-card" style="margin-bottom:24px">' +
+    '<div class="section-header"><span class="section-title">Score Matrix</span>' +
+    '<span style="color:#94a3b8;font-size:13px;font-weight:400">Each employee&#39;s rating per project</span></div>' +
+    '<div class="matrix-wrap">' +
+    '<table class="matrix-table">' +
+    '<thead><tr>' +
+    '<th class="matrix-emp-header">Employee</th>' +
+    ratedProjects.map(p =>
+      '<th class="matrix-proj-header"><span class="matrix-proj-label" title="'+p.title+'">'+p.title+'</span></th>'
+    ).join('') +
+    '</tr></thead>' +
+    '<tbody>' +
+    allSubs.map(s => {
+      const color = empColors[s.employeeName];
+      return '<tr>' +
+        '<td class="matrix-name-cell" style="background:'+color.light+'">' +
+          '<div class="matrix-emp-name">' +
+            '<span class="matrix-emp-dot" style="background:'+color.bg+'"></span>' +
+            s.employeeName +
+          '</div>' +
+        '</td>' +
+        ratedProjects.map(p => {
+          const rating = lookup[s.employeeName][p.title];
+          const sc = rating ? scoreColor(rating) : null;
+          return '<td class="matrix-score-cell" style="background:'+color.light+'">' +
+            (rating
+              ? '<div class="score-chip" style="background:'+sc.bg+';color:'+sc.text+'" title="'+p.title+': '+rating+'★">'+rating+'</div>'
+              : '<div class="score-chip empty">—</div>'
+            ) +
+          '</td>';
+        }).join('') +
+      '</tr>';
+    }).join('') +
+    '</tbody></table></div>' +
+    // Legend
+    '<div class="matrix-legend">' +
+    '<span class="matrix-legend-title">Score:</span>' +
+    [1,2,3,4,5].map(n => {
+      const sc = scoreColor(n);
+      return '<div class="matrix-legend-item">' +
+        '<div style="width:20px;height:20px;border-radius:5px;background:'+sc.bg+';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:'+sc.text+'">'+n+'</div>' +
+        ['Low','Below Avg','Average','Above Avg','High'][n-1] +
+      '</div>';
+    }).join('') +
+    '</div>' +
+  '</div>';
+
+  return html;
+}
+
 function renderDashboard() {
   // Include any custom suggestions found in submissions
   const allTitles = new Set();
@@ -709,6 +827,7 @@ function renderDashboard() {
   const sorted = [...projectStats].sort((a,b) => currentSort==='selections' ? b.selections-a.selections : parseFloat(b.avg||0)-parseFloat(a.avg||0));
 
   document.getElementById('dash-content').innerHTML =
+    buildScoreMatrix(allSubs, dashProjects) +
     '<div class="section-card" style="margin-bottom:24px">'+
       '<div class="section-header"><span class="section-title">Project Results</span>'+
         '<div class="sort-btns">'+
